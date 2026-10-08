@@ -86,6 +86,19 @@ footer{background:#051c13;border-top:3px solid #d4a62a;color:#d6e6dc;text-align:
 footer img{width:72px;height:72px;border-radius:50%;object-fit:cover;margin-bottom:8px}
 footer a{color:var(--goldl)}.fl{font:800 20px "Noto Serif Bengali",serif;color:var(--goldl);margin-bottom:6px}
 #top{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));width:44px;height:44px;border-radius:50%;border:0;background:var(--gg);color:#2a2000;font-size:20px;cursor:pointer;display:none;z-index:9}
+.bd{display:inline-block;margin-left:6px;background:#fde8e8;color:#9b1c1c;border-radius:99px;padding:0 8px;font-size:13px;font-weight:600}
+.bar{height:10px;border-radius:99px;background:var(--line);overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;background:var(--gg)}
+.urgent{border-left:5px solid #b3122b;margin-top:10px}
+.tile{aspect-ratio:4/3;border-radius:12px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:14px;font-weight:600}.tile i{font-style:normal;font-size:30px}
+.sh3{font-size:20px;color:var(--ink);margin:28px 0 0}.events ul{margin:8px 0 12px;padding-left:20px}
+.calhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}.cal .wd{font-size:13px;color:var(--mute)}
+.day{aspect-ratio:1;border:1px solid var(--line);background:var(--surf);color:inherit;border-radius:10px;font:inherit;cursor:pointer;position:relative;padding:0}
+.day.today{box-shadow:0 0 0 2px var(--gold) inset}.day.sel{background:var(--green2);color:#fff;border-color:var(--green2)}
+.day.has:after{content:"";position:absolute;left:50%;bottom:5px;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#b3122b}
+.day small{display:block;font-size:10px;opacity:.7;line-height:1}.day{line-height:1.2}
+.ev{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}.ev b{min-width:8.5em}
+.trust{font-size:13px;opacity:.75;margin-top:14px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media(max-width:640px){.hero{padding:44px 20px 56px}.hero .wrap{grid-template-columns:1fr}.hero-logo{width:200px;order:-1;margin:0 auto}.grid2{grid-template-columns:1fr}}
 </style>
@@ -93,8 +106,8 @@ footer a{color:var(--goldl)}.fl{font:800 20px "Noto Serif Bengali",serif;color:v
 <body>
 <header>
   <a class="brand" href="#top0"><img src="logo.jpeg" alt="" onerror="this.remove()"><b>এসএসসি ৯৫</b></a>
-  <a class="nav" href="#adda">আড্ডা</a><a class="nav" href="#bondhu">বন্ধুরা</a><a class="nav" href="#utsob">অনুষ্ঠান</a><a class="nav" href="#gallery">স্মৃতি</a><a class="nav navreg" href="#join">রেজিস্ট্রেশন</a>
-  <button id="theme" aria-label="থিম বদলান">◐</button>
+  <a class="nav" href="#adda">আড্ডা</a><a class="nav" href="#bondhu">বন্ধুরা</a><a class="nav" href="#rokto">রক্তদান</a><a class="nav" href="#utsob">অনুষ্ঠান</a><a class="nav" href="#calendar">ক্যালেন্ডার</a><a class="nav" href="#meeting">মিটিং</a><a class="nav" href="#kollan">কল্যাণ</a><a class="nav" href="#gallery">স্মৃতি</a><a class="nav navreg" href="#join">রেজিস্ট্রেশন</a>
+  <button id="theme" aria-label="থিম বদলান">◐</button><button id="lang" aria-label="ভাষা বদলান">EN</button>
 </header>
 
 <div class="hero" id="top0"><div class="wrap">
@@ -106,7 +119,8 @@ footer a{color:var(--goldl)}.fl{font:800 20px "Noto Serif Bengali",serif;color:v
       <a class="btn ghost" href="#adda">আড্ডায় যোগ দিন</a>
     </div>
     <div class="count" id="count" aria-live="polite"></div>
-    <div class="stats"><div><b id="nMem">–</b><span>নিবন্ধিত বন্ধু</span></div><div><b id="nPost">–</b><span>আড্ডার পোস্ট</span></div><div><b>১৯৯৫</b><span>এসএসসি ব্যাচ</span></div></div>
+    <div class="stats"><div><b id="nMem">–</b><span>নিবন্ধিত বন্ধু</span></div><div><b id="nDist">–</b><span>জেলা / দেশ</span></div><div><b id="nDon">–</b><span>রক্তদাতা</span></div><div><b id="nPost">–</b><span>আড্ডার পোস্ট</span></div><div><b>৩০ বছর</b><span>বন্ধুত্ব (১৯৯৫–২০২৬)</span></div></div>
+    <div class="trust">🔒 নিরাপদ তথ্য — ফোন নম্বর বা ব্যক্তিগত তথ্য প্রকাশ করা হয় না</div>
   </div>
   <img class="hero-logo" src="logo.jpeg" alt="এসএসসি ৯৫ ব্যাচ সমগ্র বাংলা লগো — We Are One 2026" onerror="this.style.display='none'">
 </div></div>
@@ -129,7 +143,7 @@ footer a{color:var(--goldl)}.fl{font:800 20px "Noto Serif Bengali",serif;color:v
 <section id="bondhu"><div class="wrap">
   <h2>বন্ধুদের তালিকা</h2>
   <p class="sub">নাম, জেলা বা পেশা দিয়ে খুঁজুন। <span id="found"></span></p>
-  <div class="toolbar"><input id="q" type="search" placeholder="খুঁজুন: নাম, জেলা, পেশা…" aria-label="খুঁজুন"><select id="dFilter" aria-label="জেলা ফিল্টার"></select></div>
+  <div class="toolbar"><input id="q" type="search" placeholder="খুঁজুন: নাম, জেলা, পেশা…" aria-label="খুঁজুন"><select id="dFilter" aria-label="জেলা ফিল্টার"></select><select id="bFilter" aria-label="রক্তের গ্রুপ ফিল্টার"></select><select id="jFilter" aria-label="পেশা ফিল্টার"></select></div>
   <div class="people" id="people"></div>
   <details class="box" style="margin-top:18px" open>
     <summary style="cursor:pointer;font-weight:600">নিজের নাম যোগ করুন</summary>
@@ -138,16 +152,38 @@ footer a{color:var(--goldl)}.fl{font:800 20px "Noto Serif Bengali",serif;color:v
       <input id="mDist" placeholder="জেলা / দেশ (প্রবাসে হলে)" maxlength="40">
       <input id="mJob" placeholder="পেশা বা কর্মস্থল" maxlength="60">
       <input id="mSch" placeholder="স্কুলের নাম" maxlength="60">
+      <select id="mBlood" aria-label="রক্তের গ্রুপ"></select>
+      <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="mDonor" style="width:auto"> রক্তদানে ইচ্ছুক</label>
     </div>
     <div class="row"><button class="btn" id="mSend">তালিকায় যোগ করুন</button><button class="btn ghost sm" id="mCsv" style="color:var(--green2);border-color:var(--green2)">তালিকা ডাউনলোড (CSV)</button><span id="mMsg" class="sub" style="margin:8px 0 0"></span></div>
     <p class="sub" style="font-size:14px;margin-top:10px">ফোন নম্বর বা ব্যক্তিগত তথ্য এখানে দেবেন না। যোগাযোগ হোক হোয়াটসঅ্যাপ গ্রুপে।</p>
   </details>
 </div></section>
 
+<section id="rokto"><div class="wrap">
+  <h2>🩸 রক্তদান নেটওয়ার্ক</h2>
+  <p class="sub">জরুরি রক্তের দরকারে বন্ধুরাই সবার আগে। দাতার ফোন নম্বর এখানে দেখানো হয় না — যোগাযোগ হোক গ্রুপে। দাতা হতে “বন্ধুদের তালিকা”য় নাম যোগ করার সময় “রক্তদানে ইচ্ছুক” বেছে নিন।</p>
+  <div id="urgent"></div>
+  <div class="box" style="margin-top:12px">
+    <b>জরুরি রক্তের অনুরোধ</b>
+    <div class="grid2" style="margin-top:10px">
+      <input id="rName" placeholder="আপনার নাম" maxlength="40" aria-label="নাম">
+      <select id="rGroup" aria-label="প্রয়োজনীয় রক্তের গ্রুপ"></select>
+      <input id="rPlace" placeholder="হাসপাতাল ও এলাকা" maxlength="80" aria-label="স্থান" style="grid-column:1/-1">
+    </div>
+    <textarea id="rNote" placeholder="কত ব্যাগ, কখন, কার জন্য (ঐচ্ছিক)" maxlength="300" style="margin-top:10px;min-height:60px" aria-label="বিস্তারিত"></textarea>
+    <div class="row"><button class="btn" id="rSend">আড্ডায় জানান</button><a class="btn ghost sm" href="https://chat.whatsapp.com/EZNFpNO4vmNGVZg4PFTs4c" target="_blank" rel="noopener noreferrer" style="color:var(--green2);border-color:var(--green2)">হোয়াটসঅ্যাপ গ্রুপেও জানান</a><span id="rMsg" class="sub" style="margin:8px 0 0"></span></div>
+  </div>
+  <h3 class="sh3">রক্তদাতা বন্ধুরা</h3>
+  <div class="chips" id="bChips" role="group" aria-label="রক্তের গ্রুপ"></div>
+  <div class="people" id="donors"></div>
+</div></section>
+
 <section id="utsob"><div class="wrap">
   <h2>অনুষ্ঠান ও উদ্যোগ</h2>
   <p class="sub">তারিখ ঠিক হলে এখানে জানানো হবে।</p>
   <div class="events">
+    <div class="box" id="reunion" style="grid-column:1/-1"></div>
     <div class="box"><h3>বার্ষিক মিলনমেলা</h3>সবাই একসাথে বছরে অন্তত একবার। স্থান ও তারিখ ঠিক হবে আড্ডায় ভোট ও মতামতে।</div>
     <div class="box"><h3>স্মৃতির আড্ডা</h3>স্কুলজীবনের গল্প, ছবি আর পুরোনো দিনের হাসি। ছবি ও স্মৃতি আড্ডায় শেয়ার করুন।</div>
     <div class="box"><h3>সবার পাশে সবাই</h3>অসুস্থতা, বিপদ বা প্রয়োজনে বন্ধুর পাশে দাঁড়ানো। সাহায্যের খবর আড্ডায় “সাহায্য” ট্যাগে দিন।</div>
@@ -155,10 +191,60 @@ footer a{color:var(--goldl)}.fl{font:800 20px "Noto Serif Bengali",serif;color:v
   </div>
 </div></section>
 
+<section id="calendar"><div class="wrap">
+  <h2>ক্যালেন্ডার</h2>
+  <p class="sub">মিলনমেলা ও বন্ধুদের অনুষ্ঠানের তারিখ। নিজের অনুষ্ঠানও যোগ করতে পারেন — তা শুধু আপনার ব্রাউজারে থাকবে।</p>
+  <div class="box">
+    <div class="calhead"><button class="btn sm" id="calPrev" aria-label="আগের মাস">‹</button><b id="calTitle"></b><button class="btn sm" id="calNext" aria-label="পরের মাস">›</button></div>
+    <div id="calSub" style="text-align:center;font-size:14px;color:var(--mute);margin-bottom:10px"></div>
+    <div class="cal" id="calGrid"></div>
+    <div id="calSel" style="margin-top:12px;font-size:15px"></div>
+    <div class="row"><button class="btn ghost sm" id="calToday" style="color:var(--green2);border-color:var(--green2)">আজকের মাস</button></div>
+  </div>
+  <h3 class="sh3">এই মাসের অনুষ্ঠান</h3>
+  <div id="calList"></div>
+  <div class="box" style="margin-top:14px"><b>অনুষ্ঠান যোগ করুন</b>
+    <div class="grid2" style="margin-top:10px"><input id="evTitle" placeholder="অনুষ্ঠানের নাম" maxlength="60" aria-label="অনুষ্ঠানের নাম"><input id="evDate" type="date" aria-label="তারিখ"></div>
+    <div class="row"><button class="btn" id="evAdd">যোগ করুন</button><span id="evMsg" class="sub" style="margin:8px 0 0"></span></div>
+  </div>
+</div></section>
+
+<section id="meeting"><div class="wrap">
+  <h2>📹 অনলাইন মিটিং</h2>
+  <p class="sub">দেশে বা প্রবাসে — যেখানেই থাকুন, ভিডিও কলে এক হোন। ফোন বা কম্পিউটার থেকে যোগ দেওয়া যায়।</p>
+  <div class="box" id="mtPerm" style="display:none;margin-bottom:14px"><b>স্থায়ী মিটিং লিংক</b><p id="mtNote" style="margin:6px 0 10px"></p><a class="btn" id="mtPermGo" target="_blank" rel="noopener noreferrer">মিটিংয়ে যোগ দিন</a></div>
+  <div class="box">
+    <b>এখনই মিটিং শুরু করুন</b>
+    <p class="sub" style="margin:6px 0 10px;font-size:15px">নিচের রুমের নাম যার কাছে আছে, সেই যোগ দিতে পারবে। লিংকটি হোয়াটসঅ্যাপ গ্রুপে পাঠিয়ে দিন। (Jitsi Meet — বিনামূল্যে)</p>
+    <input id="mtRoom" maxlength="40" aria-label="রুমের নাম">
+    <div class="row"><button class="btn" id="mtOpen">মিটিং রুম খুলুন</button><button class="btn ghost sm" id="mtWa" style="color:var(--green2);border-color:var(--green2)">হোয়াটসঅ্যাপে পাঠান</button><button class="btn ghost sm" id="mtCopy" style="color:var(--green2);border-color:var(--green2)">লিংক কপি</button><button class="btn ghost sm" id="mtNew" style="color:var(--green2);border-color:var(--green2)">নতুন রুম</button></div>
+    <p class="sub" style="font-size:14px;margin:10px 0 0">প্রথম যিনি রুম খোলেন, তাঁকে লগইন করতে বলা হতে পারে। চাইলে <a href="https://meet.google.com/new" target="_blank" rel="noopener noreferrer">গুগল মিট</a> দিয়েও শুরু করে লিংক গ্রুপে দিতে পারেন।</p>
+  </div>
+  <div class="box" style="margin-top:14px"><b>মিটিংয়ের সময় ঠিক করুন</b>
+    <div class="grid2" style="margin-top:10px"><input id="mtTitle" placeholder="মিটিংয়ের নাম (ঐচ্ছিক)" maxlength="60" aria-label="মিটিংয়ের নাম"><input id="mtDate" type="date" aria-label="তারিখ"><input id="mtTime" type="time" aria-label="সময়"></div>
+    <p class="sub" style="font-size:14px;margin:8px 0 0">সময় বাংলাদেশ সময় (GMT+6) ধরা হবে। যেকোনো দেশের বন্ধু “গুগল ক্যালেন্ডারে যোগ” দিলে নিজের সময়ে দেখবেন।</p>
+    <div class="row"><button class="btn" id="mtAdd">ক্যালেন্ডারে যোগ করুন</button><span id="mtMsg" class="sub" style="margin:8px 0 0"></span></div>
+  </div>
+</div></section>
+
+<section id="kollan"><div class="wrap">
+  <h2>কল্যাণ তহবিল</h2>
+  <p class="sub">একসাথে, একে অপরের পাশে। তহবিলের হিসাব স্বচ্ছভাবে এখানে প্রকাশ করা হবে।</p>
+  <div class="box" id="fund" style="display:none;margin-bottom:14px"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><span>মোট সংগৃহীত</span><b id="fundTxt"></b></div><div class="bar"><i id="fundBar"></i></div><span id="fundSub" style="font-size:14px;color:var(--mute)"></span></div>
+  <div class="events">
+    <div class="box"><h3>🩺 চিকিৎসা সহায়তা</h3>জরুরি চিকিৎসা ও অপারেশনে বন্ধুদের পাশে দাঁড়ানো।</div>
+    <div class="box"><h3>🎓 শিক্ষা বৃত্তি</h3>বন্ধুদের সন্তানদের জন্য বৃত্তি ও শিক্ষা উপকরণ।</div>
+    <div class="box"><h3>🛟 দুর্যোগ সহায়তা</h3>বন্যা, ঘূর্ণিঝড়ে ক্ষতিগ্রস্ত বন্ধু ও পরিবারের পাশে।</div>
+  </div>
+  <div class="row"><a class="btn" href="#adda">সাহায্য চান বা দিন</a></div>
+</div></section>
+
 <section id="gallery"><div class="wrap">
   <h2>স্মৃতির অ্যালবাম</h2>
   <p class="sub">স্কুলজীবনের পুরোনো ছবি।</p>
+  <figure id="grp" style="margin:0 0 16px"><img id="grpImg" alt="" style="display:none;width:100%;border-radius:14px;border:1px solid var(--line);cursor:zoom-in"><div id="grpPh" class="tile" style="aspect-ratio:16/7;background:linear-gradient(135deg,#006A4E,#0E9384)"><i>👥</i><span>বন্ধুদের গ্রুপ ছবি — শীঘ্রই যোগ হবে</span></div><figcaption id="grpCap" class="sub" style="margin:6px 0 0"></figcaption></figure>
   <div class="gallery" id="gal"></div>
+  <div class="row" id="albumRow" style="display:none"><a class="btn sm" id="albumLink" target="_blank" rel="noopener noreferrer">আরও ছবি দেখুন</a></div>
   <h2 style="margin-top:40px">স্মরণ</h2>
   <p class="sub">যে বন্ধুরা আজ আমাদের মাঝে নেই, তাঁদের জন্য দোয়া ও ভালোবাসা।</p>
   <div id="memorial"></div>
@@ -174,6 +260,7 @@ footer a{color:var(--goldl)}.fl{font:800 20px "Noto Serif Bengali",serif;color:v
     <a class="lk" href="https://t.me/ssc95bd" target="_blank" rel="noopener noreferrer"><i>✈️</i><b>টেলিগ্রাম গ্রুপ</b><span>t.me/ssc95bd</span></a>
     <a class="lk" href="#" id="emailLink"><i>✉️</i><b>ইমেইল</b><span id="emailText">লোড হচ্ছে...</span></a>
   </div>
+  <div id="committeeWrap" hidden><h3 class="sh3">যাঁরা নিরলস কাজ করছেন</h3><div class="people" id="committee"></div></div>
   <div class="share">
     <button class="btn sm" id="shWa">হোয়াটসঅ্যাপে শেয়ার</button>
     <button class="btn sm" id="shFb">ফেসবুকে শেয়ার</button>
@@ -187,14 +274,24 @@ footer a{color:var(--goldl)}.fl{font:800 20px "Noto Serif Bengali",serif;color:v
 <div>যোগাযোগ: <a href="#" id="emailFooter">ইমেইল লোড হচ্ছে</a> · <a href="https://www.facebook.com/share/g/1CpJkru8Rk/" target="_blank" rel="noopener noreferrer">ফেসবুক</a> · <a href="https://t.me/ssc95bd" target="_blank" rel="noopener noreferrer">টেলিগ্রাম</a> · <a href="https://chat.whatsapp.com/EZNFpNO4vmNGVZg4PFTs4c" target="_blank" rel="noopener noreferrer">হোয়াটসঅ্যাপ</a></div>
 <div style="opacity:.7;margin-top:6px">We Are One · 2026</div></footer>
 <button id="top" aria-label="উপরে যান">↑</button>
+<div id="lb" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:30;align-items:center;justify-content:center;padding:16px;cursor:zoom-out"><img id="lbImg" alt="" style="max-width:100%;max-height:92%;border-radius:8px"></div>
 
 <script>
 /* ===== কনফিগ: এখানে বদলান ===== */
 const EVENT_DATE = null;            // মিলনমেলার তারিখ ঠিক হলে লিখুন, যেমন "2026-12-25T10:00:00+06:00"
-const GALLERY = [];                 // ছবি যোগ করুন, যেমন ["photos/1.jpg","photos/2.jpg"]
-const MEMORIAL = [];                // নাম যোগ করুন, যেমন ["মরহুম অমুক","মরহুম তমুক"]
+const GALLERY = ["photos/1.jpg", {src:"photos/2.jpg", caption:"স্কুলের মাঠ"}];                 // ছবি যোগ করুন, যেমন ["photos/1.jpg",{src:"photos/2.jpg",caption:"স্কুলের মাঠ"}]
+const MEMORIAL = [];
+const COMMITTEE = [];               // কমিটি, যেমন [{name:"নাম",role:"সভাপতি"}]
+const REUNION = {date:"", venue:"", days:"", expect:"", features:["লাইভ কনসার্ট ও সাংস্কৃতিক সন্ধ্যা","স্মৃতি অ্যাওয়ার্ড ও সম্মাননা","পরিবারসহ অংশগ্রহণের সুযোগ"]}; // date: "ডিসেম্বর ২০২৬", venue: "স্থানের নাম"
+const EVENTS = [];                  // ক্যালেন্ডারের অনুষ্ঠান, যেমন [{date:"2026-12-05",title:"মিলনমেলা"}]
+const HIJRI_OFFSET = 0;              // হিজরি তারিখ চাঁদ দেখা অনুযায়ী ১ দিন এগোলে/পিছোলে 1 বা -1 দিন
+const MEETING = {link:"", note:""};  // স্থায়ী মিটিং লিংক (গুগল মিট/জুম), যেমন {link:"https://meet.google.com/xxx-xxxx-xxx", note:"প্রতি শুক্রবার রাত ৯টা"}
+const GROUP_PHOTO = {src:"photos/group.jpg", caption:"আমাদের গ্রুপ ছবি"}; // গ্রুপ ছবি, যেমন {src:"photos/group.jpg", caption:"আমাদের গ্রুপ ছবি"}
+const ALBUM_LINK = "";               // আরও ছবির লিংক (গুগল ড্রাইভ/ফেসবুক অ্যালবাম)
+const WELFARE = {goal:0, raised:0, donors:0}; // টাকার অঙ্কে; goal>0 হলে প্রগ্রেস বার দেখাবে                // নাম যোগ করুন, যেমন ["মরহুম অমুক","মরহুম তমুক"]
 /* ================================= */
-const CATS={sukh:["সুখের খবর","#1f7a54"],dukkho:["দুঃখের খবর","#6b4a8a"],motamot:["মতামত","#2b6cb0"],binimoy:["সাহায্য / বিনিময়","#b8860b"],ghoshona:["ঘোষণা","#c0392b"]};
+const CATS={sukh:["সুখের খবর","#1f7a54"],dukkho:["দুঃখের খবর","#6b4a8a"],motamot:["মতামত","#2b6cb0"],binimoy:["সাহায্য / বিনিময়","#b8860b"],ghoshona:["ঘোষণা","#c0392b"],rokto:["জরুরি রক্ত","#b3122b"]};
+const BLOODS=["O+","A+","B+","AB+","O-","A-","B-","AB-"];
 const $=id=>document.getElementById(id);
 const bn=n=>String(n).replace(/\d/g,d=>"০১২৩৪৫৬৭৮৯"[d]);
 const ago=t=>{const m=Math.floor((Date.now()-t)/6e4);return m<1?"এইমাত্র":m<60?bn(m)+" মিনিট আগে":m<1440?bn(Math.floor(m/60))+" ঘণ্টা আগে":bn(Math.floor(m/1440))+" দিন আগে"};
@@ -202,6 +299,7 @@ const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"
 const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
 
 let uid=store.get('ssc95_uid',null); if(!uid){uid='u_'+Math.random().toString(36).slice(2,10);store.set('ssc95_uid',uid)}
+let lang=store.get('lang','bn');
 let posts=store.get('ssc95_posts',[]),members=store.get('ssc95_members',[]),filter="all";
 if(!posts.length)posts=[{id:'sample1',name:'এডমিন',text:'স্বাগতম! এসএসসি ৯৫ ব্যাচের আড্ডায় আপনাকে স্বাগতম। এখানে আপনার সুখ-দুঃখ শেয়ার করুন।',cat:'ghoshona',ts:Date.now()-3600000,likes:0,uid:'admin'}];
 const savePosts=()=>store.set('ssc95_posts',posts.slice(0,200));
@@ -253,7 +351,7 @@ function renderFeed(){
     const h=document.createElement("button");h.className="mini";h.textContent="❤ "+bn(p.likes||0);
     h.onclick=()=>{p.likes=(p.likes||0)+1;savePosts();renderFeed()};
     act.appendChild(h);
-    if(p.uid&&p.uid===uid){const x=document.createElement("button");x.className="mini";x.textContent=" মুছুন";x.onclick=()=>{if(confirm('মুছবেন?')){posts=posts.filter(pp=>pp.id!==p.id);savePosts();renderFeed();stats()}};act.appendChild(x)}
+    if(p.uid&&p.uid===uid){const x=document.createElement("button");x.className="mini";x.textContent=" মুছুন";x.onclick=()=>{if(confirm(L('মুছবেন?'))){posts=posts.filter(pp=>pp.id!==p.id);savePosts();renderFeed();renderBlood();stats()}};act.appendChild(x)}
     d.append(meta,t,act);f.appendChild(d);
   });
 }
@@ -264,10 +362,13 @@ function districts(){
   const cur=$("dFilter").value;
   $("dFilter").innerHTML='<option value="">সব জেলা / দেশ</option>'+ds.map(d=>`<option value="${esc(d)}">${esc(d)}</option>`).join("");
   $("dFilter").value=ds.includes(cur)?cur:"";
+  const js=[...new Set(members.map(m=>(m.job||"").trim()).filter(Boolean))].sort(),jc=$("jFilter").value;
+  $("jFilter").innerHTML='<option value="">সব পেশা</option>'+js.map(d=>`<option value="${esc(d)}">${esc(d)}</option>`).join("");
+  $("jFilter").value=js.includes(jc)?jc:"";
 }
 function renderPeople(){
-  const el=$("people"),q=$("q").value.trim().toLowerCase(),df=$("dFilter").value;el.innerHTML="";
-  const list=members.filter(m=>(!df||m.dist===df)&&[m.name,m.dist,m.job,m.sch].join(" ").toLowerCase().includes(q));
+  const el=$("people"),q=$("q").value.trim().toLowerCase(),df=$("dFilter").value,bf=$("bFilter").value,jf=$("jFilter").value;el.innerHTML="";
+  const list=members.filter(m=>(!df||m.dist===df)&&(!bf||m.blood===bf)&&(!jf||m.job===jf)&&[m.name,m.dist,m.job,m.sch].join(" ").toLowerCase().includes(q));
   $("found").textContent=members.length?"মোট "+bn(list.length)+" জন পাওয়া গেছে।":"";
   if(!list.length){el.innerHTML='<p class="empty">'+(members.length?"কাউকে পাওয়া যায়নি।":"তালিকা এখনও খালি। প্রথম নামটি আপনার হোক।")+'</p>';return}
   list.forEach(m=>{
@@ -276,11 +377,13 @@ function renderPeople(){
     const n=document.createElement("b");n.textContent=m.name;
     const s=document.createElement("div");s.style.cssText="font-size:14px;color:var(--mute)";
     s.textContent=[m.dist,m.job,m.sch].filter(Boolean).join(" · ");
-    d.append(a,n,s);el.appendChild(d);
+    d.append(a,n);
+    if(m.blood){const bd=document.createElement("span");bd.className="bd";bd.textContent="🩸 "+m.blood+(m.donor?" · দাতা":"");d.append(bd)}
+    d.append(s);el.appendChild(d);
   });
 }
-$("q").oninput=renderPeople;$("dFilter").onchange=renderPeople;
-function stats(){$("nMem").textContent=bn(members.length);$("nPost").textContent=bn(posts.length)}
+$("q").oninput=renderPeople;$("dFilter").onchange=renderPeople;$("bFilter").onchange=renderPeople;$("jFilter").onchange=renderPeople;
+function stats(){$("nMem").textContent=bn(members.length);$("nPost").textContent=bn(posts.length);$("nDist").textContent=bn(new Set(members.map(m=>(m.dist||"").trim()).filter(Boolean)).size);$("nDon").textContent=bn(members.filter(m=>m.donor).length)}
 const flash=(id,t)=>{$(id).textContent=t;setTimeout(()=>$(id).textContent="",3500)};
 
 $("pSend").onclick=()=>{
@@ -293,23 +396,42 @@ $("pSend").onclick=()=>{
 $("mSend").onclick=()=>{
   const name=$("mName").value.trim().slice(0,40);
   if(!name)return flash("mMsg","নাম লিখুন।");
-  members.unshift({name,dist:$("mDist").value.trim().slice(0,40),job:$("mJob").value.trim().slice(0,60),sch:$("mSch").value.trim().slice(0,60),ts:Date.now(),uid});
-  saveMembers();["mName","mDist","mJob","mSch"].forEach(i=>$(i).value="");flash("mMsg","তালিকায় যোগ হয়েছে।");districts();renderPeople();stats();
+  members.unshift({name,dist:$("mDist").value.trim().slice(0,40),job:$("mJob").value.trim().slice(0,60),sch:$("mSch").value.trim().slice(0,60),blood:$("mBlood").value,donor:$("mDonor").checked&&!!$("mBlood").value,ts:Date.now(),uid});
+  saveMembers();["mName","mDist","mJob","mSch","mBlood"].forEach(i=>$(i).value="");$("mDonor").checked=false;flash("mMsg","তালিকায় যোগ হয়েছে।");districts();renderPeople();renderBlood();stats();
 };
 $("mCsv").onclick=()=>{
   if(!members.length)return flash("mMsg","তালিকা খালি।");
   const q=v=>'"'+String(v||"").replace(/"/g,'""')+'"';
-  const csv="\ufeffনাম,জেলা/দেশ,পেশা,স্কুল\n"+members.map(m=>[m.name,m.dist,m.job,m.sch].map(q).join(",")).join("\n");
+  const csv="\ufeff"+L("নাম,জেলা/দেশ,পেশা,স্কুল,রক্তের গ্রুপ,রক্তদাতা")+"\n"+members.map(m=>[m.name,m.dist,m.job,m.sch,m.blood,m.donor?L("হ্যাঁ"):""].map(q).join(",")).join("\n");
   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));a.download="ssc95-friends.csv";a.click();
 };
 
 // gallery & memorial
-$("gal").innerHTML=GALLERY.length?GALLERY.map(s=>`<img src="${esc(s)}" alt="স্মৃতির ছবি" loading="lazy">`).join(""):'<p class="empty">ছবি শীঘ্রই যোগ হবে। আপনার কাছে পুরোনো ছবি থাকলে টেলিগ্রাম বা হোয়াটসঅ্যাপ গ্রুপে পাঠান।</p>';
+const TILES=[["🎓","স্কুল জীবন ১৯৯৫","#006A4E,#0E9384"],["🤝","পুনর্মিলনী","#d97706,#F97316"],["🌳","সামাজিক কাজ","#166534,#22C55E"],["☕","বন্ধুত্বের আড্ডা","#0F172A,#334155"]];
+function galTiles(){return TILES.map(t=>`<div class="tile" style="background:linear-gradient(135deg,${t[2]})"><i>${t[0]}</i><span>${t[1]}</span></div>`).join("")+'<p class="empty" style="grid-column:1/-1">ছবি শীঘ্রই যোগ হবে। আপনার কাছে পুরোনো ছবি থাকলে টেলিগ্রাম বা হোয়াটসঅ্যাপ গ্রুপে পাঠান।</p>'}
+function renderGal(){
+  const G=GALLERY.map(g=>typeof g==="string"?{src:g}:g);
+  $("gal").innerHTML=G.length?G.map((g,i)=>`<img src="${esc(g.src)}" alt="${esc(g.caption||"স্মৃতির ছবি")}" data-i="${i}" loading="lazy" tabindex="0" style="cursor:zoom-in">`).join(""):galTiles();
+  $("gal").querySelectorAll("img[data-i]").forEach(im=>{
+    im.onclick=()=>openLb(im.src,im.alt);im.onkeydown=e=>{if(e.key==="Enter")openLb(im.src,im.alt)};
+    im.onerror=()=>{im.remove();if(!$("gal").querySelector("img"))$("gal").innerHTML=galTiles()};
+  });
+  const gp=GROUP_PHOTO,gi=$("grpImg");
+  if(gp.src){
+    gi.onerror=()=>{gi.style.display="none";$("grpPh").style.display="";$("grpCap").textContent=""};
+    gi.onload=()=>{gi.style.display="block";$("grpPh").style.display="none";$("grpCap").textContent=gp.caption||""};
+    gi.alt=gp.caption||"গ্রুপ ছবি";gi.onclick=()=>openLb(gi.src,gi.alt);gi.src=gp.src;
+  }
+  if(ALBUM_LINK){$("albumRow").style.display="flex";$("albumLink").href=ALBUM_LINK}
+}
+function openLb(src,alt){$("lbImg").src=src;$("lbImg").alt=alt||"";$("lb").style.display="flex"}
+$("lb").onclick=()=>{$("lb").style.display="none"};addEventListener("keydown",e=>{if(e.key==="Escape")$("lb").style.display="none"});
+renderGal();
 $("memorial").innerHTML=MEMORIAL.length?MEMORIAL.map(n=>`<div class="box" style="margin-top:8px">🕊️ ${esc(n)}</div>`).join(""):'<p class="empty">যাঁদের নাম যোগ করা হবে, এখানে থাকবে।</p>';
 
 // share
 const url=location.href.split('#')[0],msg="এসএসসি ৯৫ ব্যাচ — সমগ্র বাংলা। সবাই নাম লেখান: ";
-$("shWa").onclick=()=>window.open("https://wa.me/?text="+encodeURIComponent(msg+url),"_blank","noopener");
+$("shWa").onclick=()=>window.open("https://wa.me/?text="+encodeURIComponent(L(msg)+url),"_blank","noopener");
 $("shFb").onclick=()=>window.open("https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(url),"_blank","noopener");
 $("shCp").onclick=async()=>{try{await navigator.clipboard.writeText(url);flash("shMsg","লিংক কপি হয়েছে।")}catch{flash("shMsg",url)}};
 
@@ -317,7 +439,184 @@ $("shCp").onclick=async()=>{try{await navigator.clipboard.writeText(url);flash("
 const tb=$("top");addEventListener("scroll",()=>{tb.style.display=scrollY>600?"block":"none"},{passive:true});
 tb.onclick=()=>scrollTo({top:0});
 
-districts();renderFeed();renderPeople();stats();
+// blood network
+$("mBlood").innerHTML='<option value="">রক্তের গ্রুপ (ঐচ্ছিক)</option>'+BLOODS.map(b=>`<option>${b}</option>`).join("");
+$("rGroup").innerHTML=BLOODS.map(b=>`<option>${b}</option>`).join("");
+$("bFilter").innerHTML='<option value="">সব রক্তের গ্রুপ</option>'+BLOODS.map(b=>`<option>${b}</option>`).join("");
+let bSel="";
+function renderBlood(){
+  const donors=members.filter(m=>m.donor&&m.blood),bc=$("bChips");bc.innerHTML="";
+  [["","সব ("+bn(donors.length)+")"],...BLOODS.map(g=>[g,g+" ("+bn(donors.filter(m=>m.blood===g).length)+")"])].forEach(([g,t])=>{
+    const b=document.createElement("button");b.className="chip";b.textContent=t;b.setAttribute("aria-pressed",g===bSel);b.onclick=()=>{bSel=g;renderBlood()};bc.appendChild(b);
+  });
+  const list=donors.filter(m=>!bSel||m.blood===bSel),el=$("donors");el.innerHTML="";
+  if(!list.length)el.innerHTML='<p class="empty">'+(donors.length?"এই গ্রুপের দাতা এখনও নেই।":"রক্তদাতার তালিকা এখনও খালি।")+'</p>';
+  list.slice(0,60).forEach(m=>{
+    const d=document.createElement("div");d.className="box";
+    const a=document.createElement("div");a.className="av";a.style.background="#b3122b";a.textContent=m.blood;
+    const n=document.createElement("b");n.textContent=m.name;
+    const s=document.createElement("div");s.style.cssText="font-size:14px;color:var(--mute)";s.textContent=[m.dist,m.job].filter(Boolean).join(" · ");
+    d.append(a,n,s);el.appendChild(d);
+  });
+  const u=posts.filter(p=>p.cat==="rokto").slice(0,3);
+  $("urgent").innerHTML=u.map(p=>`<div class="box urgent"><b>${esc(p.name)}</b> · <span style="color:var(--mute);font-size:14px">${ago(p.ts)}</span><p style="margin:6px 0 0;white-space:pre-wrap;overflow-wrap:anywhere">${esc(p.text)}</p></div>`).join("");
+}
+$("rSend").onclick=()=>{
+  const name=$("rName").value.trim().slice(0,40),place=$("rPlace").value.trim().slice(0,80),note=$("rNote").value.trim().slice(0,300);
+  if(!name||!place)return flash("rMsg","নাম ও হাসপাতাল/এলাকা লিখুন।");
+  posts.unshift({id:'p_'+Date.now(),name,text:"🩸 "+$("rGroup").value+" রক্ত দরকার — "+place+(note?"\n"+note:""),cat:"rokto",ts:Date.now(),likes:0,uid});
+  savePosts();["rName","rPlace","rNote"].forEach(i=>$(i).value="");flash("rMsg","অনুরোধ আড্ডায় পোস্ট হয়েছে।");renderFeed();renderBlood();stats();
+};
+
+// reunion, welfare, committee
+function renderReunion(){
+  const R=REUNION;
+  $("reunion").innerHTML=`<span class="tag" style="--c:#b8860b">${esc(R.date||"তারিখ শীঘ্রই জানানো হবে")}</span><h3>মিলনমেলা ২০২৬</h3><div>📍 ${esc(R.venue||"স্থান আড্ডার ভোটে ঠিক হবে")}${R.days?" · "+esc(R.days):""}${R.expect?" · "+esc(R.expect)+" বন্ধুর প্রত্যাশা":""}</div><ul>${R.features.map(f=>`<li>${esc(f)}</li>`).join("")}</ul><a class="btn sm" href="#join">রেজিস্ট্রেশন করুন</a>`;
+}
+function renderWelfare(){
+  const W=WELFARE;$("fund").style.display=W.goal>0?"block":"none";if(W.goal<=0)return;
+  const p=Math.min(100,Math.round(W.raised/W.goal*100));
+  $("fundTxt").textContent="৳ "+bn(W.raised.toLocaleString("en-IN"))+" / ৳ "+bn(W.goal.toLocaleString("en-IN"));
+  $("fundBar").style.width=p+"%";$("fundSub").textContent=bn(p)+"% লক্ষ্য পূরণ"+(W.donors?" · "+bn(W.donors)+" জন অবদান রেখেছেন":"");
+}
+$("committee").innerHTML=COMMITTEE.map(c=>`<div class="box"><div class="av">${esc((c.name||"?").trim()[0])}</div><b>${esc(c.name)}</b><div style="font-size:14px;color:var(--mute)">${esc(c.role||"")}</div></div>`).join("");
+$("committeeWrap").hidden=!COMMITTEE.length;
+
+// calendar
+const MNE=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const WD=["রবি","সোম","মঙ্গল","বুধ","বৃহ","শুক্র","শনি"],MN=["জানুয়ারি","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"];
+const pad=n=>String(n).padStart(2,"0"),dkey=(y,m,d)=>y+"-"+pad(m+1)+"-"+pad(d);
+let evs=store.get('ssc95_events',[]),t0=new Date(),cy=t0.getFullYear(),cm=t0.getMonth(),selK="";
+const allEv=()=>[...EVENTS,...(EVENT_DATE?[{date:String(EVENT_DATE).slice(0,10),title:"মিলনমেলা"}]:[]),...evs.map(e=>({...e,mine:1}))];
+const fmtD=k=>{const[y,m,d]=k.split("-").map(Number);return bn(d)+" "+MN[m-1]+" "+bn(y)};
+function nextD(k){const[y,m,d]=k.split("-").map(Number),x=new Date(Date.UTC(y,m-1,d+1));return x.getUTCFullYear()+pad(x.getUTCMonth()+1)+pad(x.getUTCDate())}
+function dt(e,h){const[y,m,d]=e.date.split("-").map(Number),[H,M]=e.time.split(":").map(Number),x=new Date(Date.UTC(y,m-1,d,H-6+h,M));return x.getUTCFullYear()+pad(x.getUTCMonth()+1)+pad(x.getUTCDate())+"T"+pad(x.getUTCHours())+pad(x.getUTCMinutes())+"00Z"}
+function mUrl(r){return "https://meet.jit.si/"+encodeURIComponent(r)}
+function gcal(e){const r=e.room?"&details="+encodeURIComponent(mUrl(e.room))+"&location="+encodeURIComponent(mUrl(e.room)):"";return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(e.title)+"&dates="+(e.time?dt(e,0)+"/"+dt(e,1):e.date.replace(/-/g,"")+"/"+nextD(e.date))+r}
+function icsDl(e){
+  const d=e.date.replace(/-/g,""),st=new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z";
+  const txt=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//SSC95//BN","BEGIN:VEVENT","UID:"+d+"-"+Date.now()+"@ssc95","DTSTAMP:"+st,e.time?"DTSTART:"+dt(e,0):"DTSTART;VALUE=DATE:"+d,e.time?"DTEND:"+dt(e,1):"DTEND;VALUE=DATE:"+nextD(e.date),"SUMMARY:"+e.title.replace(/([,;\\])/g,"\\$1"),...(e.room?["URL:"+mUrl(e.room)]:[]),"END:VEVENT","END:VCALENDAR"].join("\r\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([txt],{type:"text/calendar;charset=utf-8"}));a.download="ssc95-event.ics";a.click();
+}
+const BM=[["বৈশাখ","Boishakh"],["জ্যৈষ্ঠ","Joishtho"],["আষাঢ়","Asharh"],["শ্রাবণ","Srabon"],["ভাদ্র","Bhadro"],["আশ্বিন","Ashwin"],["কার্তিক","Kartik"],["অগ্রহায়ণ","Ogrohayon"],["পৌষ","Poush"],["মাঘ","Magh"],["ফাল্গুন","Falgun"],["চৈত্র","Chaitra"]];
+const HM=[["মুহাররম","Muharram"],["সফর","Safar"],["রবিউল আউয়াল","Rabi I"],["রবিউস সানি","Rabi II"],["জমাদিউল আউয়াল","Jumada I"],["জমাদিউস সানি","Jumada II"],["রজব","Rajab"],["শাবান","Shaban"],["রমজান","Ramadan"],["শাওয়াল","Shawwal"],["জিলকদ","Dhul Qadah"],["জিলহজ","Dhul Hijjah"]];
+const nd=n=>lang==="en"?String(n):bn(n),li=a=>lang==="en"?a[1]:a[0];
+function bang(y,m,d){ // বাংলাদেশের সংশোধিত বঙ্গাব্দ (১ বৈশাখ = ১৪ এপ্রিল)
+  const by=(m>3||(m===3&&d>=14))?y:y-1,g=by+1,leap=g%4===0&&(g%100!==0||g%400===0);
+  let n=Math.round((Date.UTC(y,m,d)-Date.UTC(by,3,14))/864e5);
+  const len=[31,31,31,31,31,30,30,30,30,30,leap?31:30,30];
+  for(let i=0;i<12;i++){if(n<len[i])return{d:n+1,m:i,y:by-593};n-=len[i]}
+}
+const hf=(()=>{try{return new Intl.DateTimeFormat("en-u-ca-islamic-umalqura-nu-latn",{day:"numeric",month:"numeric",year:"numeric",timeZone:"UTC"})}catch{return null}})();
+function hij(y,m,d){
+  if(!hf)return null;
+  try{const p={};hf.formatToParts(new Date(Date.UTC(y,m,d+HIJRI_OFFSET,12))).forEach(x=>p[x.type]=x.value);const r={d:+p.day,m:+p.month-1,y:parseInt(p.year)};return isNaN(r.m)||isNaN(r.d)||!HM[r.m]?null:r}catch{return null}
+}
+const fB=b=>nd(b.d)+" "+li(BM[b.m])+" "+nd(b.y)+(lang==="en"?" BS":" বঙ্গাব্দ"),fH=h=>nd(h.d)+" "+li(HM[h.m])+" "+nd(h.y)+(lang==="en"?" AH":" হিজরি");
+const lb=(b,k)=>li(k[b.m])+" "+nd(b.y),rng=(a,b)=>a===b?a:a+" – "+b;
+function renderCal(){
+  const E=allEv(),first=new Date(cy,cm,1).getDay(),n=new Date(cy,cm+1,0).getDate(),today=dkey(t0.getFullYear(),t0.getMonth(),t0.getDate());
+  $("calTitle").textContent=MN[cm]+" "+bn(cy);
+  const nn=new Date(cy,cm+1,0).getDate(),b1=bang(cy,cm,1),b2=bang(cy,cm,nn),h1=hij(cy,cm,1),h2=hij(cy,cm,nn),en=lang==="en";
+  $("calSub").textContent=(en?"Bengali: ":"বাংলা: ")+rng(lb(b1,BM),lb(b2,BM))+(h1&&h2?" · "+(en?"Hijri: ":"হিজরি: ")+rng(lb(h1,HM),lb(h2,HM)):"");
+  const sk=selK||dkey(t0.getFullYear(),t0.getMonth(),t0.getDate()),[sy,sm,sd]=sk.split("-").map(Number),sb=bang(sy,sm-1,sd),sh=hij(sy,sm-1,sd);
+  $("calSel").textContent=(en?sd+" "+MNE[sm-1]+" "+sy:fmtD(sk))+" · "+fB(sb)+(sh?" · "+fH(sh)+(en?" (Hijri date is approximate)":" (হিজরি তারিখ আনুমানিক)"):"");
+  let h=WD.map(d=>`<div class="wd">${d}</div>`).join("")+"<div></div>".repeat(first);
+  for(let d=1;d<=n;d++){const k=dkey(cy,cm,d),ev=E.filter(e=>e.date===k);
+    h+=`<button class="day${k===today?" today":""}${k===selK?" sel":""}${ev.length?" has":""}" data-k="${k}" title="${esc(ev.map(e=>e.title).join(", "))}">${bn(d)}<small>${nd(bang(cy,cm,d).d)}</small></button>`}
+  $("calGrid").innerHTML=h;
+  $("calGrid").querySelectorAll(".day").forEach(b=>b.onclick=()=>{selK=b.dataset.k;$("evDate").value=selK;renderCal()});
+  const pre=cy+"-"+pad(cm+1),list=E.filter(e=>e.date.startsWith(pre)).sort((a,b)=>a.date<b.date?-1:1),L2=$("calList");
+  L2.innerHTML=list.length?list.map((e,i)=>`<div class="box ev"><b>${fmtD(e.date)}</b>${e.time?`<span class="tag" style="--c:#1f7a54">${bn(e.time)}</span>`:""}<span>${esc(e.title)}</span>${e.room?`<a class="mini" href="${mUrl(e.room)}" target="_blank" rel="noopener noreferrer">📹 মিটিংয়ে যোগ দিন</a>`:""}<a class="mini" href="${gcal(e)}" target="_blank" rel="noopener noreferrer">গুগল ক্যালেন্ডারে যোগ</a><button class="mini" data-i="${i}">ক্যালেন্ডার ফাইল (.ics)</button>${e.mine?`<button class="mini" data-x="${esc(e.id)}">মুছুন</button>`:""}</div>`).join(""):'<p class="empty">এই মাসে কোনো অনুষ্ঠান নেই।</p>';
+  L2.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>icsDl(list[b.dataset.i]));
+  L2.querySelectorAll("[data-x]").forEach(b=>b.onclick=()=>{evs=evs.filter(e=>e.id!==b.dataset.x);store.set('ssc95_events',evs);renderCal()});
+}
+$("calPrev").onclick=()=>{cm--;if(cm<0){cm=11;cy--}renderCal()};
+$("calNext").onclick=()=>{cm++;if(cm>11){cm=0;cy++}renderCal()};
+$("calToday").onclick=()=>{cy=t0.getFullYear();cm=t0.getMonth();renderCal()};
+$("evAdd").onclick=()=>{
+  const title=$("evTitle").value.trim().slice(0,60),date=$("evDate").value;
+  if(!title||!date)return flash("evMsg","অনুষ্ঠানের নাম ও তারিখ দিন।");
+  evs.push({id:'e_'+Date.now(),date,title});store.set('ssc95_events',evs.slice(-100));
+  const[y,m]=date.split("-").map(Number);cy=y;cm=m-1;selK=date;$("evTitle").value="";flash("evMsg","অনুষ্ঠান যোগ হয়েছে।");renderCal();
+};
+
+// online meeting
+const newRoom=()=>"ssc95-"+Math.random().toString(36).slice(2,8);
+let room=store.get('ssc95_room',null);if(!room){room=newRoom();store.set('ssc95_room',room)}
+$("mtRoom").value=room;
+const curRoom=()=>$("mtRoom").value.trim().replace(/[^\w\-]/g,"")||room;
+$("mtOpen").onclick=()=>window.open(mUrl(curRoom()),"_blank","noopener");
+$("mtNew").onclick=()=>{room=newRoom();store.set('ssc95_room',room);$("mtRoom").value=room;flash("mtMsg","নতুন রুম তৈরি হয়েছে।")};
+$("mtCopy").onclick=async()=>{try{await navigator.clipboard.writeText(mUrl(curRoom()));flash("mtMsg","লিংক কপি হয়েছে।")}catch{flash("mtMsg",mUrl(curRoom()))}};
+$("mtWa").onclick=()=>{const d=$("mtDate").value,t=$("mtTime").value;window.open("https://wa.me/?text="+encodeURIComponent(L("এসএসসি ৯৫ অনলাইন মিটিং")+(d?" — "+d+(t?" "+t+" "+L("(বাংলাদেশ সময়)"):""):"")+": "+mUrl(curRoom())),"_blank","noopener")};
+$("mtAdd").onclick=()=>{
+  const title=$("mtTitle").value.trim().slice(0,60)||"অনলাইন মিটিং",date=$("mtDate").value,time=$("mtTime").value;
+  if(!date)return flash("mtMsg","মিটিংয়ের তারিখ দিন।");
+  evs.push({id:'e_'+Date.now(),date,title,time,room:curRoom()});store.set('ssc95_events',evs.slice(-100));
+  const[y,m]=date.split("-").map(Number);cy=y;cm=m-1;selK=date;flash("mtMsg","মিটিং ক্যালেন্ডারে যোগ হয়েছে।");renderCal();
+};
+if(MEETING.link){$("mtPerm").style.display="block";$("mtPermGo").href=MEETING.link;$("mtNote").textContent=MEETING.note||""}
+
+districts();renderFeed();renderPeople();renderBlood();renderReunion();renderWelfare();renderCal();stats();
+
+// language (বাংলা / English)
+const DICT={"এসএসসি ৯৫ ব্যাচ সমগ্র বাংলা - We Are One 2026। দেশে বা প্রবাসে, আমরা এক পরিবার।": "SSC '95 Batch, All Bangladesh - We Are One 2026. At home or abroad, we are one family.", "এসএসসি ৯৫ ব্যাচ — সমগ্র বাংলা": "SSC '95 Batch — All Bangladesh", "দেশে বা প্রবাসে, আমরা এক পরিবার। বন্ধুত্ব, স্মৃতি, প্রীতি — সারা জীবন।": "At home or abroad, we are one family. Friendship, memories, affection — for life.", "এসএসসি ৯৫": "SSC '95", "আড্ডা": "Adda", "বন্ধুরা": "Friends", "রক্তদান": "Blood", "অনুষ্ঠান": "Events", "ক্যালেন্ডার": "Calendar", "কল্যাণ": "Welfare", "স্মৃতি": "Memories", "রেজিস্ট্রেশন": "Register", "থিম বদলান": "Change theme", "ভাষা বদলান": "Change language", "এসএসসি ৯৫ ব্যাচ": "SSC '95 Batch", "সমগ্র বাংলা": "All Bangladesh", "ডাটাবেজে নাম লেখান": "Join the database", "আড্ডায় যোগ দিন": "Join the Adda", "নিবন্ধিত বন্ধু": "Registered friends", "জেলা / দেশ": "District / Country", "রক্তদাতা": "Blood donors", "আড্ডার পোস্ট": "Adda posts", "৩০ বছর": "30 years", "বন্ধুত্ব (১৯৯৫–২০২৬)": "of friendship (1995–2026)", "🔒 নিরাপদ তথ্য — ফোন নম্বর বা ব্যক্তিগত তথ্য প্রকাশ করা হয় না": "🔒 Safe data — phone numbers and personal details are never published", "এসএসসি ৯৫ ব্যাচ সমগ্র বাংলা লগো — We Are One 2026": "SSC '95 Batch All Bangladesh logo — We Are One 2026", "সুখ-দুঃখের খবর, মতামত, সাহায্য চাওয়া বা দেওয়া — সব এক জায়গায়। এই ভার্সনে পোস্ট শুধু আপনার ব্রাউজারে সেভ হয়।": "News of joy and sorrow, opinions, asking or offering help — all in one place. In this version, posts are saved only in your browser.", "আপনার নাম": "Your name", "নাম": "Name", "ধরন": "Type", "বন্ধুদের কী জানাতে চান?": "What do you want to tell your friends?", "বার্তা": "Message", "পোস্ট করুন": "Post", "ফিল্টার": "Filter", "বন্ধুদের তালিকা": "Friends directory", "নাম, জেলা বা পেশা দিয়ে খুঁজুন।": "Search by name, district or profession.", "খুঁজুন: নাম, জেলা, পেশা…": "Search: name, district, profession…", "খুঁজুন": "Search", "জেলা ফিল্টার": "District filter", "রক্তের গ্রুপ ফিল্টার": "Blood group filter", "পেশা ফিল্টার": "Profession filter", "নিজের নাম যোগ করুন": "Add your name", "জেলা / দেশ (প্রবাসে হলে)": "District / Country (if abroad)", "পেশা বা কর্মস্থল": "Profession or workplace", "স্কুলের নাম": "School name", "রক্তের গ্রুপ": "Blood group", "রক্তদানে ইচ্ছুক": "Willing to donate blood", "তালিকায় যোগ করুন": "Add to the list", "তালিকা ডাউনলোড (CSV)": "Download list (CSV)", "ফোন নম্বর বা ব্যক্তিগত তথ্য এখানে দেবেন না। যোগাযোগ হোক হোয়াটসঅ্যাপ গ্রুপে।": "Please don't enter phone numbers or personal details here. Let's connect in the WhatsApp group.", "🩸 রক্তদান নেটওয়ার্ক": "🩸 Blood Donation Network", "জরুরি রক্তের দরকারে বন্ধুরাই সবার আগে। দাতার ফোন নম্বর এখানে দেখানো হয় না — যোগাযোগ হোক গ্রুপে। দাতা হতে “বন্ধুদের তালিকা”য় নাম যোগ করার সময় “রক্তদানে ইচ্ছুক” বেছে নিন।": "In an urgent need of blood, friends come first. Donors' phone numbers are not shown here — connect through the groups. To become a donor, choose \"Willing to donate blood\" when adding your name to the Friends directory.", "জরুরি রক্তের অনুরোধ": "Urgent blood request", "প্রয়োজনীয় রক্তের গ্রুপ": "Blood group needed", "হাসপাতাল ও এলাকা": "Hospital and area", "স্থান": "Location", "কত ব্যাগ, কখন, কার জন্য (ঐচ্ছিক)": "How many bags, when, for whom (optional)", "বিস্তারিত": "Details", "আড্ডায় জানান": "Tell the Adda", "হোয়াটসঅ্যাপ গ্রুপেও জানান": "Also tell the WhatsApp group", "রক্তদাতা বন্ধুরা": "Blood donor friends", "অনুষ্ঠান ও উদ্যোগ": "Events & Initiatives", "তারিখ ঠিক হলে এখানে জানানো হবে।": "Dates will be announced here once finalized.", "বার্ষিক মিলনমেলা": "Annual Reunion", "সবাই একসাথে বছরে অন্তত একবার। স্থান ও তারিখ ঠিক হবে আড্ডায় ভোট ও মতামতে।": "Everyone together at least once a year. Venue and date will be decided by votes and opinions in the Adda.", "স্মৃতির আড্ডা": "Memory Adda", "স্কুলজীবনের গল্প, ছবি আর পুরোনো দিনের হাসি। ছবি ও স্মৃতি আড্ডায় শেয়ার করুন।": "School-day stories, photos and the laughter of old times. Share photos and memories in the Adda.", "সবার পাশে সবাই": "Everyone for Everyone", "অসুস্থতা, বিপদ বা প্রয়োজনে বন্ধুর পাশে দাঁড়ানো। সাহায্যের খবর আড্ডায় “সাহায্য” ট্যাগে দিন।": "Standing by a friend in illness, danger or need. Post requests for help in the Adda with the \"Help\" tag.", "আজীবন খোঁজখবর": "Lifelong Care", "সুখের খবরে আনন্দ, দুঃখের খবরে সহমর্মিতা — এই বন্ধন আজীবন।": "Joy in happy news, compassion in sad news — this bond lasts a lifetime.", "মিলনমেলা ও বন্ধুদের অনুষ্ঠানের তারিখ। নিজের অনুষ্ঠানও যোগ করতে পারেন — তা শুধু আপনার ব্রাউজারে থাকবে।": "Dates of the reunion and friends' events. You can add your own events too — they stay only in your browser.", "আগের মাস": "Previous month", "পরের মাস": "Next month", "আজকের মাস": "This month", "এই মাসের অনুষ্ঠান": "Events this month", "অনুষ্ঠান যোগ করুন": "Add an event", "অনুষ্ঠানের নাম": "Event name", "তারিখ": "Date", "যোগ করুন": "Add", "কল্যাণ তহবিল": "Welfare Fund", "একসাথে, একে অপরের পাশে। তহবিলের হিসাব স্বচ্ছভাবে এখানে প্রকাশ করা হবে।": "Together, beside one another. The fund's accounts will be published here transparently.", "মোট সংগৃহীত": "Total raised", "🩺 চিকিৎসা সহায়তা": "🩺 Medical Support", "জরুরি চিকিৎসা ও অপারেশনে বন্ধুদের পাশে দাঁড়ানো।": "Standing by friends in emergency treatment and surgery.", "🎓 শিক্ষা বৃত্তি": "🎓 Education Scholarship", "বন্ধুদের সন্তানদের জন্য বৃত্তি ও শিক্ষা উপকরণ।": "Scholarships and learning materials for friends' children.", "🛟 দুর্যোগ সহায়তা": "🛟 Disaster Relief", "বন্যা, ঘূর্ণিঝড়ে ক্ষতিগ্রস্ত বন্ধু ও পরিবারের পাশে।": "Beside friends and families hit by floods and cyclones.", "সাহায্য চান বা দিন": "Ask for or offer help", "স্মৃতির অ্যালবাম": "Memory Album", "স্কুলজীবনের পুরোনো ছবি।": "Old photos from school days.", "স্মরণ": "Remembrance", "যে বন্ধুরা আজ আমাদের মাঝে নেই, তাঁদের জন্য দোয়া ও ভালোবাসা।": "Prayers and love for the friends who are no longer with us.", "জাতীয় ডাটাবেজ ২০২৬": "National Database 2026", "রেজিস্ট্রেশন চলছে। দেশে বা প্রবাসে যেখানেই থাকুন, ফর্মটি পূরণ করুন।": "Registration is open. Wherever you are, at home or abroad, please fill in the form.", "রেজিস্ট্রেশন ফর্ম": "Registration form", "হোয়াটসঅ্যাপ গ্রুপ": "WhatsApp group", "প্রতিদিনের আড্ডা": "Daily adda", "ফেসবুক গ্রুপ": "Facebook group", "গ্রুপে যোগ দিন": "Join the group", "টেলিগ্রাম গ্রুপ": "Telegram group", "ইমেইল": "Email", "লোড হচ্ছে...": "Loading...", "যাঁরা নিরলস কাজ করছেন": "Those working tirelessly", "হোয়াটসঅ্যাপে শেয়ার": "Share on WhatsApp", "ফেসবুকে শেয়ার": "Share on Facebook", "লিংক কপি": "Copy link", "ফেসবুকে খুঁজুন: “এসএসসি ৯৫ ব্যাচ সমগ্র বাংলা”। বন্ধুদের ট্যাগ ও শেয়ার করুন। #এসএসসি৯৫": "Find us on Facebook: \"SSC 95 Batch All Bangladesh\". Tag and share with friends. #SSC95", "এসএসসি ৯৫ ব্যাচ, সমগ্র বাংলাদেশ": "SSC '95 Batch, All Bangladesh", "যোগাযোগ:": "Contact:", "ইমেইল লোড হচ্ছে": "Loading email", "ফেসবুক": "Facebook", "টেলিগ্রাম": "Telegram", "হোয়াটসঅ্যাপ": "WhatsApp", "উপরে যান": "Go to top", "লাইভ কনসার্ট ও সাংস্কৃতিক সন্ধ্যা": "Live concert & cultural evening", "স্মৃতি অ্যাওয়ার্ড ও সম্মাননা": "Memory awards & recognition", "পরিবারসহ অংশগ্রহণের সুযোগ": "Family participation welcome", "সুখের খবর": "Happy news", "দুঃখের খবর": "Sad news", "মতামত": "Opinion", "সাহায্য / বিনিময়": "Help / Exchange", "ঘোষণা": "Announcement", "জরুরি রক্ত": "Urgent blood", "এইমাত্র": "Just now", "এডমিন": "Admin", "স্বাগতম! এসএসসি ৯৫ ব্যাচের আড্ডায় আপনাকে স্বাগতম। এখানে আপনার সুখ-দুঃখ শেয়ার করুন।": "Welcome! Welcome to the SSC '95 Batch Adda. Share your joys and sorrows here.", "মিলনমেলার তারিখ শীঘ্রই জানানো হবে।": "The reunion date will be announced soon.", "মিলনমেলা শুরু হয়েছে!": "The reunion has begun!", "দিন": "Days", "ঘণ্টা": "Hours", "মিনিট": "Minutes", "সেকেন্ড": "Seconds", "সব": "All", "এখানে এখনও কোনো পোস্ট নেই। প্রথম পোস্টটি আপনিই দিন।": "No posts here yet. Be the first to post.", "মুছুন": "Delete", "মুছবেন?": "Delete this?", "সব জেলা / দেশ": "All districts / countries", "সব পেশা": "All professions", "কাউকে পাওয়া যায়নি।": "No one found.", "তালিকা এখনও খালি। প্রথম নামটি আপনার হোক।": "The list is still empty. Let your name be the first.", "· দাতা": "· donor", "নাম ও বার্তা লিখুন।": "Please enter your name and a message.", "বার্তা খুব ছোট।": "Message is too short.", "পোস্ট হয়েছে।": "Posted.", "নাম লিখুন।": "Please enter a name.", "তালিকায় যোগ হয়েছে।": "Added to the list.", "তালিকা খালি।": "The list is empty.", "নাম,জেলা/দেশ,পেশা,স্কুল,রক্তের গ্রুপ,রক্তদাতা": "Name,District/Country,Profession,School,Blood group,Donor", "হ্যাঁ": "Yes", "স্কুল জীবন ১৯৯৫": "School Life 1995", "পুনর্মিলনী": "Reunion", "সামাজিক কাজ": "Social Work", "বন্ধুত্বের আড্ডা": "Friendship Adda", "স্মৃতির ছবি": "Memory photo", "ছবি শীঘ্রই যোগ হবে। আপনার কাছে পুরোনো ছবি থাকলে টেলিগ্রাম বা হোয়াটসঅ্যাপ গ্রুপে পাঠান।": "Photos will be added soon. If you have old photos, send them to the Telegram or WhatsApp group.", "যাঁদের নাম যোগ করা হবে, এখানে থাকবে।": "Names of those to be added will appear here.", "এসএসসি ৯৫ ব্যাচ — সমগ্র বাংলা। সবাই নাম লেখান:": "SSC '95 Batch — All Bangladesh. Everyone, add your name:", "লিংক কপি হয়েছে।": "Link copied.", "রক্তের গ্রুপ (ঐচ্ছিক)": "Blood group (optional)", "সব রক্তের গ্রুপ": "All blood groups", "এই গ্রুপের দাতা এখনও নেই।": "No donor in this group yet.", "রক্তদাতার তালিকা এখনও খালি।": "The donor list is still empty.", "নাম ও হাসপাতাল/এলাকা লিখুন।": "Please enter your name and hospital/area.", "অনুরোধ আড্ডায় পোস্ট হয়েছে।": "Request posted in the Adda.", "তারিখ শীঘ্রই জানানো হবে": "Date to be announced soon", "মিলনমেলা ২০২৬": "Reunion 2026", "রেজিস্ট্রেশন করুন": "Register now", "রবি": "Sun", "সোম": "Mon", "মঙ্গল": "Tue", "বুধ": "Wed", "বৃহ": "Thu", "শুক্র": "Fri", "শনি": "Sat", "জানুয়ারি": "January", "ফেব্রুয়ারি": "February", "মার্চ": "March", "এপ্রিল": "April", "মে": "May", "জুন": "June", "জুলাই": "July", "আগস্ট": "August", "সেপ্টেম্বর": "September", "অক্টোবর": "October", "নভেম্বর": "November", "ডিসেম্বর": "December", "মিলনমেলা": "Reunion", "গুগল ক্যালেন্ডারে যোগ": "Add to Google Calendar", "ক্যালেন্ডার ফাইল (.ics)": "Calendar file (.ics)", "এই মাসে কোনো অনুষ্ঠান নেই।": "No events this month.", "অনুষ্ঠানের নাম ও তারিখ দিন।": "Please enter an event name and date.", "অনুষ্ঠান যোগ হয়েছে।": "Event added.", "মিটিং": "Meeting", "📹 অনলাইন মিটিং": "📹 Online Meeting", "দেশে বা প্রবাসে — যেখানেই থাকুন, ভিডিও কলে এক হোন। ফোন বা কম্পিউটার থেকে যোগ দেওয়া যায়।": "At home or abroad — wherever you are, come together on a video call. Join from a phone or computer.", "স্থায়ী মিটিং লিংক": "Permanent meeting link", "মিটিংয়ে যোগ দিন": "Join the meeting", "এখনই মিটিং শুরু করুন": "Start a meeting now", "নিচের রুমের নাম যার কাছে আছে, সেই যোগ দিতে পারবে। লিংকটি হোয়াটসঅ্যাপ গ্রুপে পাঠিয়ে দিন। (Jitsi Meet — বিনামূল্যে)": "Anyone who has the room name below can join. Send the link to the WhatsApp group. (Jitsi Meet — free)", "রুমের নাম": "Room name", "মিটিং রুম খুলুন": "Open meeting room", "হোয়াটসঅ্যাপে পাঠান": "Send on WhatsApp", "নতুন রুম": "New room", "প্রথম যিনি রুম খোলেন, তাঁকে লগইন করতে বলা হতে পারে। চাইলে": "The person who opens the room first may be asked to log in. You can also start with", "গুগল মিট": "Google Meet", "দিয়েও শুরু করে লিংক গ্রুপে দিতে পারেন।": "and then share the link in the group.", "মিটিংয়ের সময় ঠিক করুন": "Set a meeting time", "মিটিংয়ের নাম (ঐচ্ছিক)": "Meeting name (optional)", "মিটিংয়ের নাম": "Meeting name", "সময়": "Time", "সময় বাংলাদেশ সময় (GMT+6) ধরা হবে। যেকোনো দেশের বন্ধু “গুগল ক্যালেন্ডারে যোগ” দিলে নিজের সময়ে দেখবেন।": "Time is taken as Bangladesh time (GMT+6). Friends in any country who tap \"Add to Google Calendar\" will see it in their own time.", "ক্যালেন্ডারে যোগ করুন": "Add to calendar", "বন্ধুদের গ্রুপ ছবি — শীঘ্রই যোগ হবে": "Friends' group photo — coming soon", "আরও ছবি দেখুন": "See more photos", "গ্রুপ ছবি": "Group photo", "📹 মিটিংয়ে যোগ দিন": "📹 Join the meeting", "নতুন রুম তৈরি হয়েছে।": "New room created.", "এসএসসি ৯৫ অনলাইন মিটিং": "SSC '95 Online Meeting", "(বাংলাদেশ সময়)": "(Bangladesh time)", "অনলাইন মিটিং": "Online Meeting", "মিটিংয়ের তারিখ দিন।": "Please enter the meeting date.", "মিটিং ক্যালেন্ডারে যোগ হয়েছে।": "Meeting added to the calendar."};
+const MNB=MN;
+const D2L=s=>s.replace(/[০-৯]/g,c=>"০১২৩৪৫৬৭৮৯".indexOf(c));
+const mo=(a,d,m,y)=>MNB.includes(m)?(d?d+" ":"")+MNE[MNB.indexOf(m)]+" "+y:undefined;
+const PAT=[
+ [/^(\d+) মিনিট আগে$/,"$1 min ago"],[/^(\d+) ঘণ্টা আগে$/,"$1 h ago"],[/^(\d+) দিন আগে$/,"$1 d ago"],
+ [/^মোট (\d+) জন পাওয়া গেছে।$/,"$1 found."],[/^সব \((\d+)\)$/,"All ($1)"],
+ [/^(\d+)% লক্ষ্য পূরণ(?: · (\d+) জন অবদান রেখেছেন)?$/,(a,p,n)=>p+"% of goal reached"+(n?" · "+n+" contributors":"")],
+ [/^🩸 (\S+) · দাতা$/,"🩸 $1 · donor"],
+ [/^📍 .*(?:স্থান আড্ডার ভোটে ঠিক হবে|বন্ধুর প্রত্যাশা)/,a=>a.replace("স্থান আড্ডার ভোটে ঠিক হবে","Venue to be decided by vote in the Adda").replace(" বন্ধুর প্রত্যাশা"," friends expected")],
+ [/^(\d+) (\S+) (\d{4})$/,mo],[/^(\S+) (\d{4})$/,(a,m,y)=>mo(a,"",m,y)],
+ [/^❤ \d+$/,a=>a],[/^[A-Z]+[+-] \(\d+\)$/,a=>a],[/^[\d\s৳,:%\/\-.]+$/,a=>a]
+];
+function T(v){
+  const m=v.match(/^(\s*)([\s\S]*?)(\s*)$/),k=m[2];if(!k)return v;
+  if(DICT[k]!==undefined)return m[1]+DICT[k]+m[3];
+  if(/^🩸 \S+ রক্ত দরকার — /.test(k))return m[1]+k.replace(/^🩸 (\S+) রক্ত দরকার — /,"🩸 $1 blood needed — ")+m[3];
+  const d=D2L(k);
+  for(const [re,f] of PAT)if(re.test(d)){const r=d.replace(re,f);return r===undefined||r==="undefined"?v:m[1]+r+m[3]}
+  return v;
+}
+const L=s=>lang==="en"?T(s):s;
+function tr(n){
+  if(n._t!==undefined&&n.nodeValue===n._t)return;
+  n._o=n.nodeValue;n._t=undefined;
+  if(lang==="en"){const x=T(n.nodeValue);if(x!==n.nodeValue){n._t=x;n.nodeValue=x}}
+}
+function walk(root){
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>/^(SCRIPT|STYLE)$/.test(n.parentNode.nodeName)?2:1}),a=[];
+  while(w.nextNode())a.push(w.currentNode);
+  a.forEach(n=>{if(lang==="en")tr(n);else if(n._t!==undefined&&n.nodeValue===n._t){n.nodeValue=n._o;n._t=undefined}});
+}
+const ATTR=["placeholder","aria-label","alt","title"];
+function attrs(root){
+  [root,...root.querySelectorAll("[placeholder],[aria-label],[alt],[title]")].forEach(el=>{
+    if(el.nodeType!==1)return;el._a=el._a||{};
+    ATTR.forEach(a=>{if(!el.hasAttribute(a))return;if(el._a[a]===undefined)el._a[a]=el.getAttribute(a);el.setAttribute(a,lang==="en"?T(el._a[a]):el._a[a])});
+  });
+}
+const OC={childList:true,subtree:true,characterData:true};
+const obs=new MutationObserver(ms=>{
+  if(lang!=="en")return;obs.disconnect();
+  ms.forEach(m=>{if(m.type==="characterData")tr(m.target);m.addedNodes.forEach(n=>{if(n.nodeType===3)tr(n);else if(n.nodeType===1){walk(n);attrs(n)}})});
+  obs.observe(document.body,OC);
+});
+const TITLE0=document.title,META=document.querySelector('meta[name="description"]'),META0=META&&META.content;
+function setLang(l){
+  lang=l;store.set('lang',l);obs.disconnect();renderCal();
+  document.documentElement.lang=l==="en"?"en":"bn";
+  walk(document.body);attrs(document.body);
+  document.title=l==="en"?T(TITLE0):TITLE0;if(META)META.content=l==="en"?T(META0):META0;
+  $("lang").textContent=l==="en"?"বাং":"EN";
+  if(l==="en")obs.observe(document.body,OC);
+}
+$("lang").onclick=()=>setLang(lang==="en"?"bn":"en");
+if(lang==="en")setLang("en");
 </script>
 </body>
 </html>
