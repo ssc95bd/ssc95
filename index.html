@@ -418,12 +418,11 @@ function renderMarquee(){
   let pos=unitW/2,paused=false,last=0,t=0;
   box.scrollLeft=pos;
   const stop=()=>{clearTimeout(t);paused=true},go=d=>{clearTimeout(t);t=setTimeout(()=>{pos=box.scrollLeft;paused=false},d)};
-  box.onmouseenter=stop;box.onmouseleave=()=>go(0);
+  box.onpointerenter=e=>{if(e.pointerType==="mouse")stop()};box.onpointerleave=e=>{if(e.pointerType==="mouse")go(0)};
   box.onfocusin=stop;box.onfocusout=()=>go(0);
   box.ontouchstart=stop;box.ontouchend=box.ontouchcancel=()=>go(1800);
   box.onwheel=()=>{stop();go(1200)};
   box.onscroll=()=>{if(!paused)return;const s=box.scrollLeft;if(s>=unitW)box.scrollLeft=s-unitW;else if(s<1)box.scrollLeft=s+unitW};
-  if(matchMedia("(prefers-reduced-motion:reduce)").matches)return; // কম-মোশন সেটিং থাকলে অটো-স্ক্রল হবে না, হাতে সোয়াইপ করা যাবে
   const loop=ts=>{
     const dt=Math.min(ts-(last||ts),64);last=ts;
     if(!paused&&mqVis){pos+=dir*speed*dt/1000;if(pos>=unitW)pos-=unitW;if(pos<1)pos+=unitW;box.scrollLeft=pos}
