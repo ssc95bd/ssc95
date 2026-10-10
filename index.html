@@ -163,6 +163,7 @@ a.btn.ghost.sm[href*="whatsapp"],#mtWa,#shWa{--bc:#25623f}
 #calNext,#mCsv{--bc:#5f6b2a}
 #calToday{--bc:#8f6a12}
 #moreBtn{--bc:#7a4a1f}
+#donMore{--bc:#9b2335}
 #mPhotoX{--bc:#8a3b4a}
 /* উপরের ছোট বাটন */
 header button{color:#fff!important;border:1px solid rgba(241,210,122,.6)!important}
@@ -274,6 +275,7 @@ header a.navreg{border-bottom-color:transparent}header a.navreg:hover,header a.n
   <h3 class="sh3">রক্তদাতা বন্ধুরা</h3>
   <div class="chips" id="bChips" role="group" aria-label="রক্তের গ্রুপ"></div>
   <div class="people" id="donors"></div>
+  <div class="row" id="donMoreRow" style="justify-content:center;margin-top:14px;display:none"><button class="btn sm" id="donMore"></button></div>
 </div></section>
 
 <section id="utsob"><div class="wrap">
@@ -651,14 +653,18 @@ $("mBlood").innerHTML='<option value="">রক্তের গ্রুপ (ঐ�
 $("rGroup").innerHTML=BLOODS.map(b=>`<option>${b}</option>`).join("");
 $("bFilter").innerHTML='<option value="">সব রক্তের গ্রুপ</option>'+BLOODS.map(b=>`<option>${b}</option>`).join("");
 let bSel="";
+let bAll=false;
 function renderBlood(){
   const donors=members.filter(m=>m.donor&&m.blood),bc=$("bChips");bc.innerHTML="";
   [["","সব ("+bn(donors.length)+")"],...BLOODS.map(g=>[g,g+" ("+bn(donors.filter(m=>m.blood===g).length)+")"])].forEach(([g,t])=>{
-    const b=document.createElement("button");b.className="chip";b.textContent=t;b.setAttribute("aria-pressed",g===bSel);b.onclick=()=>{bSel=g;renderBlood()};bc.appendChild(b);
+    const b=document.createElement("button");b.className="chip";b.textContent=t;b.setAttribute("aria-pressed",g===bSel);b.onclick=()=>{bSel=g;bAll=false;renderBlood()};bc.appendChild(b);
   });
   const list=donors.filter(m=>!bSel||m.blood===bSel),el=$("donors");el.innerHTML="";
   if(!list.length)el.innerHTML='<p class="empty">'+(donors.length?"এই গ্রুপের দাতা এখনও নেই।":"রক্তদাতার তালিকা এখনও খালি।")+'</p>';
-  list.slice(0,60).forEach(m=>{
+  const DON_FRONT=4,capped=list.slice(0,60),vis=bAll?capped:capped.slice(0,DON_FRONT);
+  $("donMoreRow").style.display=capped.length>DON_FRONT?"":"none";
+  $("donMore").textContent=bAll?"কম দেখুন ▲":"আরও "+bn(capped.length-DON_FRONT)+" জন রক্তদাতা দেখুন ▼";
+  vis.forEach(m=>{
     const d=document.createElement("div");d.className="box";
     const a=document.createElement("div");a.className="av";a.style.background="#b3122b";a.textContent=m.blood;
     const n=document.createElement("b");n.textContent=m.name;
@@ -668,6 +674,7 @@ function renderBlood(){
   const u=posts.filter(p=>p.cat==="rokto").slice(0,3);
   $("urgent").innerHTML=u.map(p=>`<div class="box urgent"><b>${esc(p.name)}</b> · <span style="color:var(--mute);font-size:14px">${ago(p.ts)}</span><p style="margin:6px 0 0;white-space:pre-wrap;overflow-wrap:anywhere">${esc(p.text)}</p></div>`).join("");
 }
+$("donMore").onclick=()=>{bAll=!bAll;renderBlood();if(!bAll)$("rokto").scrollIntoView({behavior:"smooth"})};
 $("rSend").onclick=()=>{
   const name=$("rName").value.trim().slice(0,40),place=$("rPlace").value.trim().slice(0,80),note=$("rNote").value.trim().slice(0,300);
   if(!name||!place)return flash("rMsg","নাম ও হাসপাতাল/এলাকা লিখুন।");
