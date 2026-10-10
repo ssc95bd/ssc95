@@ -398,7 +398,7 @@ function districts(){
 }
 const PEOPLE_ROWS=1; // শুরুতে কত লাইন কার্ড দেখাবে
 let showAll=false;
-const okPhoto=p=>typeof p==="string"&&p.length<60000&&/^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(p);
+const okPhoto=p=>typeof p==="string"&&((p.length<60000&&/^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(p))||/^https:\/\/lh3\.googleusercontent\.com\/d\/[A-Za-z0-9_-]{10,60}=s\d{2,3}$/.test(p));
 function renderPeople(){
   const el=$("people"),q=$("q").value.trim().toLowerCase(),df=$("dFilter").value,bf=$("bFilter").value,jf=$("jFilter").value;el.innerHTML="";
   const list=members.filter(m=>(!df||m.dist===df)&&(!bf||m.blood===bf)&&(!jf||m.job===jf)&&[m.name,m.dist,m.job,m.sch].join(" ").toLowerCase().includes(q));
@@ -410,7 +410,7 @@ function renderPeople(){
   if(!list.length){el.innerHTML='<p class="empty">'+(members.length?"কাউকে পাওয়া যায়নি।":"তালিকা এখনও খালি। প্রথম নামটি আপনার হোক।")+'</p>';return}
   shown.forEach(m=>{
     const d=document.createElement("div");d.className="box";
-    const a=document.createElement("div");a.className="av";a.textContent=(m.name||"?").trim()[0];if(okPhoto(m.photo)){const im=new Image();im.src=m.photo;im.alt="";a.textContent="";a.appendChild(im)}
+    const a=document.createElement("div");a.className="av";a.textContent=(m.name||"?").trim()[0];if(okPhoto(m.photo)){const im=new Image();im.src=m.photo;im.alt="";im.loading="lazy";im.referrerPolicy="no-referrer";a.textContent="";a.appendChild(im)}
     const n=document.createElement("b");n.textContent=m.name;
     const s=document.createElement("div");s.style.cssText="font-size:14px;color:var(--mute)";
     s.textContent=[m.dist,m.job,m.sch].filter(Boolean).join(" · ");
@@ -434,7 +434,7 @@ function renderMarquee(){
   for(let r=0;r<2*k;r++)members.forEach((m,i)=>{
     const b=document.createElement("button");b.type="button";b.className="mqi";b.title=m.name;
     if(r>=k){b.setAttribute("aria-hidden","true");b.tabIndex=-1}
-    const a=document.createElement("span");a.className="mqa";a.textContent=Array.from(clean(m.name))[0]||"?";a.style.background=cols[i%cols.length];if(okPhoto(m.photo)){const im=new Image();im.src=m.photo;im.alt="";a.textContent="";a.appendChild(im)}
+    const a=document.createElement("span");a.className="mqa";a.textContent=Array.from(clean(m.name))[0]||"?";a.style.background=cols[i%cols.length];if(okPhoto(m.photo)){const im=new Image();im.src=m.photo;im.alt="";im.loading="lazy";im.referrerPolicy="no-referrer";a.textContent="";a.appendChild(im)}
     const n=document.createElement("b");n.textContent=m.name;
     const d=document.createElement("small");d.textContent=m.dist||m.job||"\u00a0";
     b.append(a,n,d);
@@ -501,7 +501,7 @@ $("mPhoto").onchange=e=>{
   const f=e.target.files[0];if(!f)return;
   if(!/^image\//.test(f.type)||f.size>15e6){resetPhoto();return flash("mMsg","ছবি বাছুন (সর্বোচ্চ ১৫ এমবি)।")}
   const im=new Image(),u=URL.createObjectURL(f);
-  im.onload=()=>{const S=160,c=document.createElement("canvas");c.width=c.height=S;const x=c.getContext("2d"),m=Math.min(im.width,im.height);
+  im.onload=()=>{const S=128,c=document.createElement("canvas");c.width=c.height=S;const x=c.getContext("2d"),m=Math.min(im.width,im.height);
     x.fillStyle="#fff";x.fillRect(0,0,S,S);x.drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,S,S);URL.revokeObjectURL(u);
     photoData=c.toDataURL("image/jpeg",.72);const p=new Image();p.src=photoData;p.alt="";$("mPrev").textContent="";$("mPrev").appendChild(p);$("mPhotoX").hidden=false};
   im.onerror=()=>{URL.revokeObjectURL(u);resetPhoto();flash("mMsg","এই ছবি পড়া যায়নি।")};im.src=u};
