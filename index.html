@@ -114,8 +114,6 @@ footer a{color:var(--goldl)}.fl{font:800 20px "Noto Serif Bengali",serif;color:v
 .trust{font-size:13px;opacity:.75;margin-top:14px}
 .mq{position:relative;margin:6px 0 18px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
 .mq::-webkit-scrollbar{display:none}
-#dmq{max-width:488px;margin-left:auto;margin-right:auto} /* রক্তদাতা: একসাথে ৪টি কার্ড দেখা যায়, বাকিগুলো স্ক্রলে আসে */
-#dmq .mqt{margin:0 auto}
 .mqt{display:flex;width:max-content;padding:8px 0 6px}
 .mqi{flex:0 0 108px;width:108px;margin-right:14px;background:none;border:0;color:inherit;font:inherit;cursor:pointer;text-align:center;padding:4px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:2px}
 .mqa{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;color:#fff;font:700 26px "Noto Serif Bengali",serif;border:3px solid var(--surf);box-shadow:0 0 0 2px var(--goldl),0 6px 14px -6px rgba(0,0,0,.45);transition:transform .2s}
@@ -123,6 +121,7 @@ footer a{color:var(--goldl)}.fl{font:800 20px "Noto Serif Bengali",serif;color:v
 .mqi b{max-width:100%;font-size:15px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mqi small{max-width:100%;font-size:13px;line-height:1.3;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .av{overflow:hidden}.av img,.mqa img{width:100%;height:100%;object-fit:cover;display:block}.mqa{overflow:hidden}
+.av,.mqa{position:relative}.av img,.mqa img{position:absolute;inset:0}.ph{color:transparent!important}
 #addBox summary{font-size:18px;font-weight:700;cursor:pointer}
 #addBox .fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 16px;margin-top:14px}
 #addBox .fld label.t{display:block;font-weight:700;font-size:15px;margin:0 0 5px}
@@ -221,7 +220,6 @@ footer a{color:var(--goldl)}.fl{font:800 20px "Noto Serif Bengali",serif;color:v
   </div>
   <h3 class="sh3">রক্তদাতা বন্ধুরা</h3>
   <div class="chips" id="bChips" role="group" aria-label="রক্তের গ্রুপ"></div>
-  <div class="mq" id="dmq" role="region" aria-label="রক্তদাতাদের স্বয়ংক্রিয় স্ক্রল তালিকা" style="display:none"><div class="mqt" id="dmqTrack"></div></div>
   <div class="people" id="donors"></div>
 </div></section>
 
@@ -416,21 +414,25 @@ function districts(){
 }
 const PEOPLE_ROWS=1; // শুরুতে কত লাইন কার্ড দেখাবে
 let showAll=false;
-const okPhoto=p=>typeof p==="string"&&((p.length<60000&&/^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(p))||/^https:\/\/lh3\.googleusercontent\.com\/d\/[A-Za-z0-9_-]{10,60}=s\d{2,3}$/.test(p));
-// যেকোনো গুগল ড্রাইভ ছবির লিংককে নিরাপদ lh3 লিংকে বদলায় (ড্রাইভ ফাইল "যে কেউ দেখতে পারবে" থাকতে হবে)
-function photoSrc(p){
-  if(okPhoto(p))return p;
-  if(typeof p!=="string"||p.length>400||!/^https:\/\/(lh3\.googleusercontent\.com|drive\.google\.com|drive\.usercontent\.google\.com|docs\.google\.com)\//.test(p))return "";
-  const m=p.match(/[?&]id=([A-Za-z0-9_-]{10,60})/)||p.match(/\/d\/([A-Za-z0-9_-]{10,60})/);
-  return m?"https://lh3.googleusercontent.com/d/"+m[1]+"=s200":"";
+// ছবি: ডেটা-ইউআরআই (jpeg/png/webp/gif) অথবা গুগলের ছবি লিংক (lh3 বা ড্রাইভ) নিরাপদে চেনে। ড্রাইভ লিংক ছোট ছবির লিংকে বদলে নেয়।
+const PH_KEYS=["photo","photoUrl","photo_url","image","img","avatar","pic","picture"];
+const photoOf=m=>{for(const k of PH_KEYS){const v=m&&m[k];if(typeof v==="string"&&v.trim())return v.trim()}return""};
+function photoUrls(p){
+  p=typeof p==="string"?p.trim():"";if(!p)return[];
+  if(p.length<150000&&/^data:image\/(?:jpeg|jpg|png|webp|gif);base64,[A-Za-z0-9+\/=]+$/.test(p))return[p];
+  let m=p.match(/^https:\/\/lh3\.googleusercontent\.com\/(?:u\/\d+\/)?d\/([A-Za-z0-9_-]{10,80})/)||p.match(/^https:\/\/drive\.google\.com\/(?:file\/d\/|(?:uc|open|thumbnail)\?(?:[^#\s]*&)?id=)([A-Za-z0-9_-]{10,80})/);
+  if(m)return["https://lh3.googleusercontent.com/d/"+m[1]+"=s128","https://drive.google.com/thumbnail?id="+m[1]+"&sz=s200"];
+  if(/^https:\/\/[a-z0-9-]+\.googleusercontent\.com\/[A-Za-z0-9_\-\/=.:%]+$/.test(p))return[p];
+  return[];
 }
-// অ্যাভাটারে ছবি বসায়; ছবি লোড না হলে অক্ষর/লেখাই থাকে
-function putPhoto(el,p){
-  const src=photoSrc(p);if(!src)return;
-  const im=new Image(),keep=el.textContent;im.alt="";im.loading="lazy";im.referrerPolicy="no-referrer";
-  im.onerror=()=>{im.remove();el.textContent=keep};
-  im.onload=()=>{el.textContent="";el.appendChild(im)};
-  im.src=src;
+const okPhoto=p=>photoUrls(p).length>0;
+// ছবি বসায়; লোড না হওয়া পর্যন্ত (বা ব্যর্থ হলে) নামের প্রথম অক্ষর দেখা যায়, ফাঁকা বৃত্ত থাকে না। eager=true হলে সঙ্গে সঙ্গে লোড, নইলে স্ক্রলে কাছে এলে (ডেটা বাঁচে)
+function setPhoto(el,p,eager){
+  const u=photoUrls(p);if(!u.length)return;let i=0;
+  const im=new Image();im.alt="";im.decoding="async";im.loading=eager?"eager":"lazy";im.referrerPolicy="no-referrer";
+  im.onload=()=>el.classList.add("ph");
+  im.onerror=()=>{if(++i<u.length)im.src=u[i];else im.remove()};
+  im.src=u[0];el.appendChild(im);
 }
 function renderPeople(){
   const el=$("people"),q=$("q").value.trim().toLowerCase(),df=$("dFilter").value,bf=$("bFilter").value,jf=$("jFilter").value;el.innerHTML="";
@@ -443,7 +445,7 @@ function renderPeople(){
   if(!list.length){el.innerHTML='<p class="empty">'+(members.length?"কাউকে পাওয়া যায়নি।":"তালিকা এখনও খালি। প্রথম নামটি আপনার হোক।")+'</p>';return}
   shown.forEach(m=>{
     const d=document.createElement("div");d.className="box";
-    const a=document.createElement("div");a.className="av";a.textContent=(m.name||"?").trim()[0];putPhoto(a,m.photo);
+    const a=document.createElement("div");a.className="av";a.textContent=(m.name||"?").trim()[0];setPhoto(a,m.photo)
     const n=document.createElement("b");n.textContent=m.name;
     const s=document.createElement("div");s.style.cssText="font-size:14px;color:var(--mute)";
     s.textContent=[m.dist,m.job,m.sch].filter(Boolean).join(" · ");
@@ -452,59 +454,44 @@ function renderPeople(){
     d.append(s);el.appendChild(d);
   });
 }
-// অটো-স্ক্রল স্ট্রিপ (ডান থেকে বামে চলে; হোভারে/টাচে থামে, মোবাইলে সোয়াইপ করা যায়)
-// বন্ধুদের তালিকা ও রক্তদাতা — দুই জায়গায় একই ফাংশন
-const MQ={};
-function runMarquee(boxId,trackId,items,still){
-  const box=$(boxId),tr=$(trackId),ITEM=122,st=MQ[boxId]||(MQ[boxId]={raf:0,vis:true,obs:false});
-  cancelAnimationFrame(st.raf);tr.innerHTML="";
-  if(!items.length){box.style.display="none";return}
+// বন্ধুদের অটো-স্ক্রল স্ট্রিপ (হোভারে থামে, মোবাইলে সোয়াইপ করা যায়)
+let mqRaf=0,mqVis=true,mqObs=false;
+function renderMarquee(){
+  const box=$("mq"),tr=$("mqTrack"),ITEM=122;
+  cancelAnimationFrame(mqRaf);tr.innerHTML="";
+  if(!members.length){box.style.display="none";return}
   box.style.display="";
-  if(!st.obs&&window.IntersectionObserver){st.obs=true;new IntersectionObserver(e=>{st.vis=e[e.length-1].isIntersecting}).observe(box)}
-  // still: সব কার্ড একসাথে জায়গা হয়ে গেলে স্ক্রল ছাড়াই স্থির দেখায় (রক্তদাতা কম থাকলে)
-  if(still&&items.length*ITEM<=(box.clientWidth||1200)){
-    items.forEach(it=>{const b=document.createElement("button");b.type="button";b.className="mqi";b.title=it.name;
-      const a=document.createElement("span");a.className="mqa";a.textContent=it.letter;a.style.background=it.color;putPhoto(a,it.photo);
-      const n=document.createElement("b");n.textContent=it.name;b.append(a,n);
-      [it.sub,it.sub2].forEach(t=>{if(t!==undefined){const d=document.createElement("small");d.textContent=t||"\u00a0";b.append(d)}});
-      b.onclick=()=>{b.blur();it.onclick()};tr.appendChild(b)});
-    box.scrollLeft=0;box.onscroll=box.onpointerdown=box.ontouchstart=null;return;
-  }
-  const k=Math.max(1,Math.ceil((box.clientWidth||1200)/(items.length*ITEM)));
-  const unitW=items.length*k*ITEM;
-  for(let r=0;r<2*k;r++)items.forEach(it=>{
-    const b=document.createElement("button");b.type="button";b.className="mqi";b.title=it.name;
+  if(!mqObs&&window.IntersectionObserver){mqObs=true;new IntersectionObserver(e=>{mqVis=e[0].isIntersecting}).observe(box)}
+  const clean=n=>{const t=(n||"").trim().replace(/^(মোঃ|মো:|মো\.|মোহাম্মদ|মোহাম্মাদ|মুহাম্মদ)\s*/,"");return(t||n||"?").trim()};
+  const cols=["#1f7a54","#b8860b","#2b6cb0","#6b4a8a","#c0392b","#0E9384"];
+  const k=Math.max(1,Math.ceil((box.clientWidth||1200)/(members.length*ITEM)));
+  const unitW=members.length*k*ITEM;
+  for(let r=0;r<2*k;r++)members.forEach((m,i)=>{
+    const b=document.createElement("button");b.type="button";b.className="mqi";b.title=m.name;
     if(r>=k){b.setAttribute("aria-hidden","true");b.tabIndex=-1}
-    const a=document.createElement("span");a.className="mqa";a.textContent=it.letter;a.style.background=it.color;putPhoto(a,it.photo);
-    const n=document.createElement("b");n.textContent=it.name;
-    const d=document.createElement("small");d.textContent=it.sub||"\u00a0";
+    const a=document.createElement("span");a.className="mqa";a.textContent=Array.from(clean(m.name))[0]||"?";a.style.background=cols[i%cols.length];setPhoto(a,m.photo,i<12)
+    const n=document.createElement("b");n.textContent=m.name;
+    const d=document.createElement("small");d.textContent=m.dist||m.job||"\u00a0";
     b.append(a,n,d);
-    if(it.sub2!==undefined){const d2=document.createElement("small");d2.textContent=it.sub2||"\u00a0";b.append(d2)}
-    b.onclick=()=>{b.blur();it.onclick()};
+    b.onclick=()=>{$("q").value=m.name;renderPeople();$("people").scrollIntoView({behavior:"smooth",block:"start"})};
     tr.appendChild(b);
   });
-  // সবসময় ডান থেকে বামে (scrollLeft বাড়লে লেখা ডান→বামে সরে)
-  const speed=(typeof MARQUEE!=="undefined"&&MARQUEE.speed)||45;
+  const dir=(typeof MARQUEE!=="undefined"&&MARQUEE.dir==="right")?-1:1,speed=(typeof MARQUEE!=="undefined"&&MARQUEE.speed)||45;
+  if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
   let pos=unitW/2,paused=false,last=0,t=0;
   box.scrollLeft=pos;
   const stop=()=>{clearTimeout(t);paused=true},go=d=>{clearTimeout(t);t=setTimeout(()=>{pos=box.scrollLeft;paused=false},d)};
-  box.onpointerdown=e=>{if(e.pointerType==="mouse")stop()};box.onpointerup=e=>{if(e.pointerType==="mouse")go(1500)};
-  box.onfocusin=e=>{if(e.target.matches&&e.target.matches(":focus-visible"))stop()};box.onfocusout=()=>go(0);
+  box.onpointerenter=e=>{if(e.pointerType==="mouse")stop()};box.onpointerleave=e=>{if(e.pointerType==="mouse")go(0)};
+  box.onfocusin=stop;box.onfocusout=()=>go(0);
   box.ontouchstart=stop;box.ontouchend=box.ontouchcancel=()=>go(1800);
   box.onwheel=()=>{stop();go(1200)};
   box.onscroll=()=>{if(!paused)return;const s=box.scrollLeft;if(s>=unitW)box.scrollLeft=s-unitW;else if(s<1)box.scrollLeft=s+unitW};
   const loop=ts=>{
     const dt=Math.min(ts-(last||ts),64);last=ts;
-    if(!paused&&st.vis){pos+=speed*dt/1000;if(pos>=unitW)pos-=unitW;box.scrollLeft=pos}
-    st.raf=requestAnimationFrame(loop);
+    if(!paused&&mqVis){pos+=dir*speed*dt/1000;if(pos>=unitW)pos-=unitW;if(pos<1)pos+=unitW;box.scrollLeft=pos}
+    mqRaf=requestAnimationFrame(loop);
   };
-  st.raf=requestAnimationFrame(loop);
-}
-function renderMarquee(){
-  const clean=n=>{const t=(n||"").trim().replace(/^(মোঃ|মো:|মো\.|মোহাম্মদ|মোহাম্মাদ|মুহাম্মদ)\s*/,"");return(t||n||"?").trim()};
-  const cols=["#1f7a54","#b8860b","#2b6cb0","#6b4a8a","#c0392b","#0E9384"];
-  runMarquee("mq","mqTrack",members.map((m,i)=>({name:m.name,sub:m.dist||m.job,photo:m.photo,letter:Array.from(clean(m.name))[0]||"?",color:cols[i%cols.length],
-    onclick:()=>{$("q").value=m.name;renderPeople();$("people").scrollIntoView({behavior:"smooth",block:"start"})}})));
+  mqRaf=requestAnimationFrame(loop);
 }
 // সবার নাম এক জায়গায় (Google Sheet) জমা ও লোড
 let remoteSig="";
@@ -513,6 +500,11 @@ async function loadRemote(){
   try{
     const r=await fetch(SHEET_API,{cache:"no-store"}),j=await r.json();
     if(!j||!j.ok||!Array.isArray(j.members))return;
+    const mk=m=>[m.name,m.dist,m.job].map(x=>String(x||"").trim()).join("|"),keep={};
+    members.forEach(m=>{if(okPhoto(m.photo))keep[mk(m)]=m.photo});
+    let bad=0,sample="";
+    j.members.forEach(m=>{const ph=photoOf(m);if(ph&&!okPhoto(ph)){bad++;sample=sample||ph.slice(0,60)}m.photo=okPhoto(ph)?ph:(keep[mk(m)]||"")});
+    if(bad)console.warn("ছবির ঠিকানা চেনা যায়নি:",bad,"টি। প্রথমটি:",sample);
     const sig=j.members.map(m=>m.name+"|"+m.dist+"|"+m.job+"|"+m.blood+"|"+(m.photo||"").length).join("\n");
     if(sig===remoteSig)return;
     remoteSig=sig;members=j.members;saveMembers();
@@ -613,8 +605,13 @@ function renderBlood(){
   });
   const list=donors.filter(m=>!bSel||m.blood===bSel),el=$("donors");el.innerHTML="";
   if(!list.length)el.innerHTML='<p class="empty">'+(donors.length?"এই গ্রুপের দাতা এখনও নেই।":"রক্তদাতার তালিকা এখনও খালি।")+'</p>';
-  runMarquee("dmq","dmqTrack",list.slice(0,60).map(m=>({name:m.name,sub:"🩸 "+m.blood+(m.dist?" · "+m.dist:""),sub2:m.job||"",photo:m.photo,letter:m.blood,color:"#b3122b",
-    onclick:()=>{$("bFilter").value=m.blood;$("q").value="";renderPeople();$("people").scrollIntoView({behavior:"smooth",block:"start"})}})),true);
+  list.slice(0,60).forEach(m=>{
+    const d=document.createElement("div");d.className="box";
+    const a=document.createElement("div");a.className="av";a.style.background="#b3122b";a.textContent=m.blood;
+    const n=document.createElement("b");n.textContent=m.name;
+    const s=document.createElement("div");s.style.cssText="font-size:14px;color:var(--mute)";s.textContent=[m.dist,m.job].filter(Boolean).join(" · ");
+    d.append(a,n,s);el.appendChild(d);
+  });
   const u=posts.filter(p=>p.cat==="rokto").slice(0,3);
   $("urgent").innerHTML=u.map(p=>`<div class="box urgent"><b>${esc(p.name)}</b> · <span style="color:var(--mute);font-size:14px">${ago(p.ts)}</span><p style="margin:6px 0 0;white-space:pre-wrap;overflow-wrap:anywhere">${esc(p.text)}</p></div>`).join("");
 }
