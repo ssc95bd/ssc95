@@ -136,6 +136,59 @@ footer a{color:var(--goldl)}.fl{font:800 20px "Noto Serif Bengali",serif;color:v
 .chip,.mini{min-height:40px;padding:8px 14px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media(max-width:640px){.hero{padding:44px 20px 56px}.hero .wrap{grid-template-columns:1fr}.hero-logo{width:200px;order:-1;margin:0 auto}.grid2{grid-template-columns:1fr}}
+
+/* ===== বাটন আপগ্রেড: হোভারে হালকা বড় + আলাদা ক্লাসিক রং ===== */
+.btn,.chip,.mini,.day,#top,header button,header a.nav,.lk{transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;will-change:transform}
+.btn:hover,.btn:focus-visible,.chip:hover,.chip:focus-visible,.mini:hover,.mini:focus-visible,.day:hover,.day:focus-visible,#top:hover,#top:focus-visible,header button:hover,header button:focus-visible,header a.nav:hover,header a.nav:focus-visible{transform:scale(1.1)}
+.lk:hover,.lk:focus-visible{transform:scale(1.04);border-color:var(--goldl)}
+.day:hover{z-index:2;box-shadow:0 6px 14px -6px rgba(0,0,0,.4)}
+.btn:active,.chip:active,.mini:active,.day:active,#top:active,header button:active,.lk:active{transform:scale(.96)}
+.btn:disabled:hover{transform:none}
+/* বাটনের রং */
+.btn{--bc:#7b1e2b;background:var(--bc)!important;color:#fff!important;border:0!important;box-shadow:0 8px 18px -8px rgba(0,0,0,.55)!important}
+.btn:hover,.btn:focus-visible{filter:brightness(1.12);box-shadow:0 12px 22px -8px rgba(0,0,0,.6)!important}
+a.btn[href="#join"]{--bc:#8f6a12}
+a.btn[data-add]{--bc:#1f5a3d}
+a.btn.ghost[href="#adda"]{--bc:#1f3a5f}
+a.btn[href="#adda"]:not(.ghost){--bc:#9a4424}
+a.btn.ghost.sm[href*="whatsapp"],#mtWa,#shWa{--bc:#25623f}
+#pSend,#rSend{--bc:#7b1e2b}
+#mSend{--bc:#1f5a3d}
+#evAdd{--bc:#1f3a5f}
+#mtOpen,#mtPermGo{--bc:#1d5c63}
+#mtAdd,#mtNew,#albumLink{--bc:#5b3a6e}
+#shFb{--bc:#2d4a7a}
+#shCp,#mtCopy{--bc:#3d4a5c}
+#calPrev{--bc:#9a4424}
+#calNext,#mCsv{--bc:#5f6b2a}
+#calToday{--bc:#8f6a12}
+#moreBtn{--bc:#7a4a1f}
+#mPhotoX{--bc:#8a3b4a}
+/* উপরের ছোট বাটন */
+header button{color:#fff!important;border:1px solid rgba(241,210,122,.6)!important}
+#theme{background:#8f6a12!important}
+#lang{background:#1d5c63!important}
+#top{background:#7b1e2b;color:#fff;box-shadow:0 0 0 2px var(--goldl),0 8px 16px -6px rgba(0,0,0,.5)}
+/* নেভিগেশন */
+header a.nav{border-bottom:2px solid var(--nc,transparent)}
+header a.nav:hover,header a.nav:focus-visible{background:color-mix(in srgb,var(--nc,#fff) 30%,transparent)}
+header a.nav:nth-of-type(8n+1){--nc:#d4788a}header a.nav:nth-of-type(8n+2){--nc:#7fa8d9}
+header a.nav:nth-of-type(8n+3){--nc:#6fbf94}header a.nav:nth-of-type(8n+4){--nc:#e0b84a}
+header a.nav:nth-of-type(8n+5){--nc:#b497d6}header a.nav:nth-of-type(8n+6){--nc:#6cc0c8}
+header a.nav:nth-of-type(8n+7){--nc:#e39a74}header a.nav:nth-of-type(8n+8){--nc:#b8c2d0}
+header a.navreg{border-bottom-color:transparent}header a.navreg:hover,header a.navreg:focus-visible{background:var(--gg)}
+/* ফিল্টার চিপ */
+.chip{--cc:#7b1e2b;border:1.5px solid var(--cc)}
+.chip:nth-child(8n+2){--cc:#1f3a5f}.chip:nth-child(8n+3){--cc:#1f5a3d}.chip:nth-child(8n+4){--cc:#8f6a12}
+.chip:nth-child(8n+5){--cc:#5b3a6e}.chip:nth-child(8n+6){--cc:#1d5c63}.chip:nth-child(8n+7){--cc:#9a4424}.chip:nth-child(8n+8){--cc:#3d4a5c}
+.chip[aria-pressed=true]{background:var(--cc)!important;border-color:var(--cc)!important;color:#fff!important}
+/* ছোট টেক্সট বাটন */
+.mini{--mc:#9b2335;border:1px solid var(--mc);border-radius:99px;color:color-mix(in srgb,var(--mc) 70%,var(--ink));background:color-mix(in srgb,var(--mc) 12%,transparent)}
+.mini[data-i]{--mc:#1f3a5f}
+/* যোগাযোগ কার্ড */
+.lk{background:linear-gradient(145deg,var(--lc,#0d3a29),#0d2f22)}
+.lk:nth-child(1){--lc:#7a5a12}.lk:nth-child(2){--lc:#1f6b45}.lk:nth-child(3){--lc:#2d4a7a}.lk:nth-child(4){--lc:#1d5c63}.lk:nth-child(5){--lc:#7b1e2b}
+@media (prefers-reduced-motion:reduce){.btn:hover,.chip:hover,.mini:hover,.day:hover,#top:hover,header button:hover,header a.nav:hover,.lk:hover,.btn:focus-visible,.chip:focus-visible,.lk:focus-visible{transform:none}}
 </style>
 </head>
 <body>
