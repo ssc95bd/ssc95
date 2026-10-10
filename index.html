@@ -107,6 +107,18 @@ footer a{color:var(--goldl)}.fl{font:800 20px "Noto Serif Bengali",serif;color:v
 .mqi:hover .mqa,.mqi:focus-visible .mqa{transform:scale(1.1)}
 .mqi b{max-width:100%;font-size:15px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mqi small{max-width:100%;font-size:13px;line-height:1.3;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.av{overflow:hidden}.av img,.mqa img{width:100%;height:100%;object-fit:cover;display:block}.mqa{overflow:hidden}
+#addBox summary{font-size:18px;font-weight:700;cursor:pointer}
+#addBox .fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 16px;margin-top:14px}
+#addBox .fld label.t{display:block;font-weight:700;font-size:15px;margin:0 0 5px}
+#addBox .fld label.t i{color:#c0392b;font-style:normal}
+#addBox input:not([type=checkbox]):not([type=file]),#addBox select{box-sizing:border-box;width:100%;font-size:16px;padding:11px 12px;border:1.5px solid var(--mute);background:var(--surf);color:inherit;border-radius:10px}
+#addBox input::placeholder{color:var(--mute);opacity:.85}
+#addBox input:focus,#addBox select:focus{outline:3px solid var(--goldl);border-color:var(--green2)}
+#addBox .chk{display:flex;gap:10px;align-items:center;font-weight:600;font-size:16px;padding:11px 0}
+#addBox .chk input{width:20px;height:20px;accent-color:var(--green2)}
+.phrow{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.phrow .av{width:64px;height:64px;float:none;margin:0;font-size:28px;border:2px dashed var(--mute);background:transparent;color:var(--mute)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media(max-width:640px){.hero{padding:44px 20px 56px}.hero .wrap{grid-template-columns:1fr}.hero-logo{width:200px;order:-1;margin:0 auto}.grid2{grid-template-columns:1fr}}
 </style>
@@ -124,6 +136,7 @@ footer a{color:var(--goldl)}.fl{font:800 20px "Noto Serif Bengali",serif;color:v
     <p>দেশে বা প্রবাসে, আমরা এক পরিবার। বন্ধুত্ব, স্মৃতি, প্রীতি — সারা জীবন।</p>
     <div class="row">
       <a class="btn" href="#join">ডাটাবেজে নাম লেখান</a>
+      <a class="btn" href="#addBox" data-add>নিজের নাম যোগ করুন</a>
       <a class="btn ghost" href="#adda">আড্ডায় যোগ দিন</a>
     </div>
     <div class="count" id="count" aria-live="polite"></div>
@@ -154,17 +167,23 @@ footer a{color:var(--goldl)}.fl{font:800 20px "Noto Serif Bengali",serif;color:v
   <div class="mq" id="mq" role="region" aria-label="বন্ধুদের স্বয়ংক্রিয় স্ক্রল তালিকা" style="display:none"><div class="mqt" id="mqTrack"></div></div>
   <div class="toolbar"><input id="q" type="search" placeholder="খুঁজুন: নাম, জেলা, পেশা…" aria-label="খুঁজুন"><select id="dFilter" aria-label="জেলা ফিল্টার"></select><select id="bFilter" aria-label="রক্তের গ্রুপ ফিল্টার"></select><select id="jFilter" aria-label="পেশা ফিল্টার"></select></div>
   <div class="people" id="people"></div>
-  <details class="box" style="margin-top:18px" open>
-    <summary style="cursor:pointer;font-weight:600">নিজের নাম যোগ করুন</summary>
-    <div class="grid2" style="margin-top:12px">
-      <input id="mName" placeholder="নাম" maxlength="40">
-      <input id="mDist" placeholder="জেলা / দেশ (প্রবাসে হলে)" maxlength="40">
-      <input id="mJob" placeholder="পেশা বা কর্মস্থল" maxlength="60">
-      <input id="mSch" placeholder="স্কুলের নাম" maxlength="60">
-      <select id="mBlood" aria-label="রক্তের গ্রুপ"></select>
-      <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="mDonor" style="width:auto"> রক্তদানে ইচ্ছুক</label>
+  <div class="row" id="moreRow" style="justify-content:center;margin-top:14px"><button class="btn ghost sm" id="moreBtn" style="color:var(--green2);border-color:var(--green2)"></button></div>
+  <details class="box" id="addBox" style="margin-top:18px">
+    <summary>নিজের নাম যোগ করুন ➕</summary>
+    <div class="fg">
+      <div class="fld"><label class="t" for="mName">নাম <i>*</i></label><input id="mName" placeholder="আপনার পুরো নাম" maxlength="40"></div>
+      <div class="fld"><label class="t" for="mDist">জেলা / দেশ (প্রবাসে হলে)</label><input id="mDist" placeholder="যেমন: যশোর বা সৌদি আরব" maxlength="40"></div>
+      <div class="fld"><label class="t" for="mJob">পেশা বা কর্মস্থল</label><input id="mJob" placeholder="যেমন: শিক্ষক, ব্যবসায়ী" maxlength="60"></div>
+      <div class="fld"><label class="t" for="mSch">স্কুলের নাম</label><input id="mSch" placeholder="যে স্কুল থেকে এসএসসি দিয়েছেন" maxlength="60"></div>
+      <div class="fld"><label class="t" for="mBlood">রক্তের গ্রুপ</label><select id="mBlood"></select></div>
+      <div class="fld"><label class="t">রক্তদান</label><label class="chk"><input type="checkbox" id="mDonor"> রক্তদানে ইচ্ছুক</label></div>
+      <div class="fld"><label class="t">আপনার ছবি (ঐচ্ছিক)</label>
+        <div class="phrow"><span class="av" id="mPrev">+</span>
+          <label class="btn ghost sm" for="mPhoto" style="color:var(--green2);border-color:var(--green2);cursor:pointer">ছবি বাছুন</label>
+          <input type="file" id="mPhoto" accept="image/*" hidden>
+          <button type="button" class="btn ghost sm" id="mPhotoX" hidden style="color:var(--green2);border-color:var(--green2)">সরান</button></div></div>
     </div>
-    <div class="row"><button class="btn" id="mSend">তালিকায় যোগ করুন</button><button class="btn ghost sm" id="mCsv" style="color:var(--green2);border-color:var(--green2)">তালিকা ডাউনলোড (CSV)</button><span id="mMsg" class="sub" style="margin:8px 0 0"></span></div>
+    <div class="row" style="margin-top:14px"><button class="btn" id="mSend">তালিকায় যোগ করুন</button><button class="btn ghost sm" id="mCsv" style="color:var(--green2);border-color:var(--green2)">তালিকা ডাউনলোড (CSV)</button><span id="mMsg" class="sub" style="margin:8px 0 0"></span></div>
     <p class="sub" style="font-size:14px;margin-top:10px">ফোন নম্বর বা ব্যক্তিগত তথ্য এখানে দেবেন না। যোগাযোগ হোক হোয়াটসঅ্যাপ গ্রুপে।</p>
   </details>
 </div></section>
@@ -377,14 +396,21 @@ function districts(){
   $("jFilter").innerHTML='<option value="">সব পেশা</option>'+js.map(d=>`<option value="${esc(d)}">${esc(d)}</option>`).join("");
   $("jFilter").value=js.includes(jc)?jc:"";
 }
+const PEOPLE_ROWS=1; // শুরুতে কত লাইন কার্ড দেখাবে
+let showAll=false;
+const okPhoto=p=>typeof p==="string"&&p.length<60000&&/^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(p);
 function renderPeople(){
   const el=$("people"),q=$("q").value.trim().toLowerCase(),df=$("dFilter").value,bf=$("bFilter").value,jf=$("jFilter").value;el.innerHTML="";
   const list=members.filter(m=>(!df||m.dist===df)&&(!bf||m.blood===bf)&&(!jf||m.job===jf)&&[m.name,m.dist,m.job,m.sch].join(" ").toLowerCase().includes(q));
   $("found").textContent=members.length?"মোট "+bn(list.length)+" জন পাওয়া গেছে।":"";
+  const filt=!!(q||df||bf||jf),cols=Math.max(1,getComputedStyle(el).gridTemplateColumns.split(" ").length),lim=cols*PEOPLE_ROWS;
+  const shown=(showAll||filt)?list:list.slice(0,lim);
+  $("moreRow").style.display=(filt||list.length<=lim)?"none":"";
+  $("moreBtn").textContent=showAll?"কম দেখুন ▲":"আরও "+bn(list.length-shown.length)+" জন দেখুন ▼";
   if(!list.length){el.innerHTML='<p class="empty">'+(members.length?"কাউকে পাওয়া যায়নি।":"তালিকা এখনও খালি। প্রথম নামটি আপনার হোক।")+'</p>';return}
-  list.forEach(m=>{
+  shown.forEach(m=>{
     const d=document.createElement("div");d.className="box";
-    const a=document.createElement("div");a.className="av";a.textContent=(m.name||"?").trim()[0];
+    const a=document.createElement("div");a.className="av";a.textContent=(m.name||"?").trim()[0];if(okPhoto(m.photo)){const im=new Image();im.src=m.photo;im.alt="";a.textContent="";a.appendChild(im)}
     const n=document.createElement("b");n.textContent=m.name;
     const s=document.createElement("div");s.style.cssText="font-size:14px;color:var(--mute)";
     s.textContent=[m.dist,m.job,m.sch].filter(Boolean).join(" · ");
@@ -408,7 +434,7 @@ function renderMarquee(){
   for(let r=0;r<2*k;r++)members.forEach((m,i)=>{
     const b=document.createElement("button");b.type="button";b.className="mqi";b.title=m.name;
     if(r>=k){b.setAttribute("aria-hidden","true");b.tabIndex=-1}
-    const a=document.createElement("span");a.className="mqa";a.textContent=Array.from(clean(m.name))[0]||"?";a.style.background=cols[i%cols.length];
+    const a=document.createElement("span");a.className="mqa";a.textContent=Array.from(clean(m.name))[0]||"?";a.style.background=cols[i%cols.length];if(okPhoto(m.photo)){const im=new Image();im.src=m.photo;im.alt="";a.textContent="";a.appendChild(im)}
     const n=document.createElement("b");n.textContent=m.name;
     const d=document.createElement("small");d.textContent=m.dist||m.job||"\u00a0";
     b.append(a,n,d);
@@ -438,7 +464,7 @@ async function loadRemote(){
   try{
     const r=await fetch(SHEET_API,{cache:"no-store"}),j=await r.json();
     if(!j||!j.ok||!Array.isArray(j.members))return;
-    const sig=j.members.map(m=>m.name+"|"+m.dist+"|"+m.job+"|"+m.blood).join("\n");
+    const sig=j.members.map(m=>m.name+"|"+m.dist+"|"+m.job+"|"+m.blood+"|"+(m.photo||"").length).join("\n");
     if(sig===remoteSig)return;
     remoteSig=sig;members=j.members;saveMembers();
     districts();renderPeople();renderMarquee();renderBlood();stats();
@@ -446,7 +472,7 @@ async function loadRemote(){
 }
 async function sendRemote(m){
   try{
-    await fetch(SHEET_API,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({name:m.name,dist:m.dist,job:m.job,sch:m.sch,blood:m.blood,donor:m.donor,hp:""})});
+    await fetch(SHEET_API,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({name:m.name,dist:m.dist,job:m.job,sch:m.sch,blood:m.blood,donor:m.donor,photo:m.photo||"",hp:""})});
     setTimeout(loadRemote,2500);
   }catch(e){}
 }
@@ -464,10 +490,27 @@ $("pSend").onclick=()=>{
 $("mSend").onclick=()=>{
   const name=$("mName").value.trim().slice(0,40);
   if(!name)return flash("mMsg","নাম লিখুন।");
-  members.unshift({name,dist:$("mDist").value.trim().slice(0,40),job:$("mJob").value.trim().slice(0,60),sch:$("mSch").value.trim().slice(0,60),blood:$("mBlood").value,donor:$("mDonor").checked&&!!$("mBlood").value,ts:Date.now(),uid});
+  members.unshift({name,dist:$("mDist").value.trim().slice(0,40),job:$("mJob").value.trim().slice(0,60),sch:$("mSch").value.trim().slice(0,60),blood:$("mBlood").value,donor:$("mDonor").checked&&!!$("mBlood").value,photo:photoData,ts:Date.now(),uid});
   if(SHEET_API)sendRemote(members[0]);
-  saveMembers();["mName","mDist","mJob","mSch","mBlood"].forEach(i=>$(i).value="");$("mDonor").checked=false;flash("mMsg","তালিকায় যোগ হয়েছে।");districts();renderPeople();renderMarquee();renderBlood();stats();
+  saveMembers();["mName","mDist","mJob","mSch","mBlood"].forEach(i=>$(i).value="");$("mDonor").checked=false;resetPhoto();flash("mMsg","তালিকায় যোগ হয়েছে।");districts();renderPeople();renderMarquee();renderBlood();stats();
 };
+// ছবি আপলোড (ছোট করে ১৬০px বর্গে সংকুচিত হয়)
+let photoData="";
+function resetPhoto(){photoData="";$("mPrev").textContent="+";$("mPhoto").value="";$("mPhotoX").hidden=true}
+$("mPhoto").onchange=e=>{
+  const f=e.target.files[0];if(!f)return;
+  if(!/^image\//.test(f.type)||f.size>15e6){resetPhoto();return flash("mMsg","ছবি বাছুন (সর্বোচ্চ ১৫ এমবি)।")}
+  const im=new Image(),u=URL.createObjectURL(f);
+  im.onload=()=>{const S=160,c=document.createElement("canvas");c.width=c.height=S;const x=c.getContext("2d"),m=Math.min(im.width,im.height);
+    x.fillStyle="#fff";x.fillRect(0,0,S,S);x.drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,S,S);URL.revokeObjectURL(u);
+    photoData=c.toDataURL("image/jpeg",.72);const p=new Image();p.src=photoData;p.alt="";$("mPrev").textContent="";$("mPrev").appendChild(p);$("mPhotoX").hidden=false};
+  im.onerror=()=>{URL.revokeObjectURL(u);resetPhoto();flash("mMsg","এই ছবি পড়া যায়নি।")};im.src=u};
+$("mPhotoX").onclick=resetPhoto;
+// তালিকার "আরও দেখুন" ও উইন্ডো মাপ বদলালে কলাম হিসাব নতুন করে
+$("moreBtn").onclick=()=>{showAll=!showAll;renderPeople();if(!showAll)$("bondhu").scrollIntoView({behavior:"smooth"})};
+let lastW=innerWidth;addEventListener("resize",()=>{if(innerWidth!==lastW){lastW=innerWidth;renderPeople()}});
+// ওপরের "নিজের নাম যোগ করুন" বাটনে ফর্ম খুলে যাবে
+document.querySelectorAll("[data-add]").forEach(a=>a.addEventListener("click",()=>{$("addBox").open=true}));
 $("mCsv").onclick=()=>{
   if(!members.length)return flash("mMsg","তালিকা খালি।");
   const q=v=>'"'+String(v||"").replace(/"/g,'""')+'"';
